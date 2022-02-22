@@ -1,7 +1,12 @@
 
 NAME		=	cub
 
-SRCS		=	sources/main.c
+SRCS		=	sources/main.c		\
+				sources/calculate.c	\
+				sources/draw.c		\
+				sources/hook.c		\
+				sources/init.c
+
 OBJS		=	$(SRCS:.c=.o)
 
 all:			cub
