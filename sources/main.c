@@ -11,17 +11,17 @@ void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
 
 void	draw_image(t_image *img, t_data *data)
 {
-	draw_map(img);
+//	draw_map(img);
 	my_mlx_pixel_put(img, data->pos.x, data->pos.y, 0x0000FFFF);
 	calculate_rays(img, data);
-//	draw_walls(img, data);
+	draw_walls(img, data);
 }
 
 int	render_next_frame(t_data *data)
 {
 	t_image	img;
 
-	img.img = mlx_new_image(data->mlx.mlx, 400, 400);
+	img.img = mlx_new_image(data->mlx.mlx, WIDTH, HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.len, &img.end);
 	draw_image(&img, data);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.mlx_win, img.img, 0, 0);

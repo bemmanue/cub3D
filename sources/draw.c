@@ -12,7 +12,12 @@ char	is_walls(int x, int y, t_data *data)
 	middle = HEIGHT / 2;
 	degree = (float)x / (float)((float)WIDTH / (float)RANGE);
 	if (degree < RANGE)
-		height = HEIGHT - (data->walls[degree]);
+	{//		height = data->walls[degree];
+//		if (HEIGHT < data->walls[degree])
+//			height = HEIGHT;
+//		else
+		height = (float)HEIGHT / ((float)data->walls[degree]) * (float)40.0;
+	}
 	wall_up = middle - (height / 2);
 	wall_down = middle + (height / 2);
 	if (y > wall_up && y < wall_down)

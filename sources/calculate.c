@@ -77,6 +77,16 @@ void	define_direct(t_data *data, int x, int y, int i, int angle)
 	}
 }
 
+int	calculate_fov(t_data *data, int angle, double c)
+{
+	int	angle2;
+	int	y2;
+
+	angle2 = abs(data->pos.angle - angle);
+	y2 = c * cos(angle2 * M_PI / 180.0);
+	return (y2);
+}
+
 void	cast_ray(t_image *img, t_data *data, int angle, int i)
 {
 	double	ray_len;
@@ -88,15 +98,18 @@ void	cast_ray(t_image *img, t_data *data, int angle, int i)
 	ray_len = 0.0;
 	while (!is_wall(x, y))
 	{
+//		x = data->pos.x - (double)(ray_len * (sin(-angle * M_PI / 180.0)));
+//		y = data->pos.y - (double)(ray_len * (cos(-angle * M_PI / 180.0)));
 		x = data->pos.x - (double)(ray_len * (sin(-angle * M_PI / 180.0)));
 		y = data->pos.y - (double)(ray_len * (cos(-angle * M_PI / 180.0)));
-		my_mlx_pixel_put(img, x, y, 0x0000FFFF);
+//		my_mlx_pixel_put(img, x, y, 0x0000FFFF);
 		ray_len += 1.0;
 	}
 	if (is_wall(x, y))
 	{
-		data->walls[i] = ray_len;
-		my_mlx_pixel_put(img, x, y, 0x0000FFFF);
+		data->walls[i] = calculate_fov(data, angle, ray_len);
+//		data->walls[i] = ray_len;
+//		my_mlx_pixel_put(img, x, y, 0x0000FFFF);
 		define_direct(data, x, y, i, angle);
 	}
 }
@@ -107,17 +120,11 @@ void	calculate_rays(t_image *img, t_data *data)
 	int		i;
 
 	i = 0;
-	angle = data->pos.angle;
 	angle = data->pos.angle - (RANGE / 2);
-//	while (angle < 0)
-//		angle += 360;
-//	while (angle > 360)
-//		angle -= 360;
 	while (i < RANGE)
 	{
 		angle++;
 		cast_ray(img, data, angle, i);
 		i++;
 	}
-
 }

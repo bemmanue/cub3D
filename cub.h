@@ -13,7 +13,7 @@
 #define		MAP_HEIGHT	10
 #define 	X_POSITION	3
 #define		Y_POSITION	7
-#define		RANGE		66
+#define		RANGE		90
 # define 	ARROW_RIGHT 124
 # define 	ARROW_LEFT 	123
 # define 	ARROW_UP	126
@@ -59,7 +59,7 @@ static int	map[10][10] =
 		{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		 {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		 {1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
