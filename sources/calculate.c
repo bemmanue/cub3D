@@ -1,5 +1,5 @@
 
-#include "../cub.h"
+#include "includes/cub.h"
 
 int	is_wall(int x, int y)
 {

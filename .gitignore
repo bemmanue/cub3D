@@ -1,0 +1,8 @@
+**/*.[ado]
+.idea
+.DS_Store
+**/.DS_Store
+objects
+cmake-build-debug
+.ccls-cache
+*.txt

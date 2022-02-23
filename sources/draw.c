@@ -1,5 +1,5 @@
 
-#include "../cub.h"
+#include "includes/cub.h"
 
 char	is_walls(int x, int y, t_data *data)
 {

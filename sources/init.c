@@ -1,5 +1,5 @@
 
-#include "../cub.h"
+#include "includes/cub.h"
 
 void	init_pos(t_pos *pos, t_data *data)
 {

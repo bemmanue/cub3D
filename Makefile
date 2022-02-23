@@ -9,7 +9,7 @@ SRCS		=	main.c		\
 				init.c
 
 VPATH		=	$(SRC_DIR)
-INCLUDES	=	.
+INCLUDES	=	includes
 
 OBJ_DIR		:=	build_files
 OBJS 		=	$(patsubst %,$(OBJ_DIR)/%,$(SRCS:.c=.o))

@@ -2,8 +2,9 @@
 #ifndef CUB_H
 # define CUB_H
 
-# include <mlx.h>
+# include "mlx/mlx.h"
 # include "libft/libft.h"
+# include <parser.h>
 # include <stdio.h>
 # include <math.h>
 

@@ -1,5 +1,5 @@
 
-#include "../cub.h"
+#include "includes/cub.h"
 
 void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
 {
@@ -27,10 +27,11 @@ int	render_next_frame(t_data *data)
 	return (0);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
 	t_data	data;
 
+	parser(argc, argv);
 	init_data(&data);
 	data.mlx.mlx = mlx_init();
 	data.mlx.mlx_win = mlx_new_window(data.mlx.mlx, WIDTH, HEIGHT, "Cub3D");
