@@ -12,7 +12,7 @@ char	is_walls(int x, int y, t_data *data)
 	middle = HEIGHT / 2;
 	degree = (float)x / (float)((float)WIDTH / (float)RANGE);
 	if (degree < RANGE)
-		height = HEIGHT - data->walls[degree];
+		height = HEIGHT - (data->walls[degree]);
 	wall_up = middle - (height / 2);
 	wall_down = middle + (height / 2);
 	if (y > wall_up && y < wall_down)
@@ -66,11 +66,9 @@ void	draw_map(t_image *img)
 		while (x < HEIGHT)
 		{
 			if (is_wall(x, y))
-				my_mlx_pixel_put(img, x, y, 0x000000FF);
+				my_mlx_pixel_put(img, x, y, 0x00000099);
 			x++;
 		}
 		y++;
 	}
 }
-
-

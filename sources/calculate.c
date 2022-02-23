@@ -37,59 +37,47 @@ void	define_direct(t_data *data, int x, int y, int i, int angle)
 	{
 		if (y < data->pos.y)
 		{
-			if (!map[next_up][wall_pos_x] || !map[next_down][wall_pos_x])
-			{
-//				if ((!map[wall_pos_y][next_left] || !map[wall_pos_y][next_right]))
-//					data->direct[i] = 'w';
-//				else
-					data->direct[i] = 'n';
-			}
-			else
+			if (map[next_up][wall_pos_x] && map[next_down][wall_pos_x])
 				data->direct[i] = 'w';
+			else if (map[wall_pos_y][next_right] == 0)
+				data->direct[i] = 'w';
+			else
+				data->direct[i] = 'n';
 		}
 		else
 		{
-			if (!map[next_up][wall_pos_x] || !map[next_down][wall_pos_x])
-			{
-//				if ((!map[wall_pos_y][next_left] || !map[wall_pos_y][next_right]))
-//					data->direct[i] = 'w';
-//				else
-					data->direct[i] = 's';
-			}
-			else
+			if (map[next_up][wall_pos_x] && map[next_down][wall_pos_x])
 				data->direct[i] = 'w';
+			else if (map[wall_pos_y][next_right] == 0)
+				data->direct[i] = 'w';
+			else
+				data->direct[i] = 's';
 		}
 	}
 	else
 	{
-		if (y <= data->pos.y)
+		if (y < data->pos.y)
 		{
-			if (!map[next_up][wall_pos_x] || !map[next_down][wall_pos_x])
-			{
-//				if ((!map[wall_pos_y][next_left] || !map[wall_pos_y][next_right]))
-//					data->direct[i] = 'e';
-//				else
-					data->direct[i] = 'n';
-			}
-			else
+			if (map[next_up][wall_pos_x] && map[next_down][wall_pos_x])
 				data->direct[i] = 'e';
+			else if (map[wall_pos_y][next_left] == 0)
+				data->direct[i] = 'e';
+			else
+				data->direct[i] = 'n';
 		}
 		else
 		{
-			if (!map[next_up][wall_pos_x] || !map[next_down][wall_pos_x])
-			{
-//				if ((!map[wall_pos_y][next_left] || !map[wall_pos_y][next_right]))
-//					data->direct[i] = 'e';
-//				else
-					data->direct[i] = 's';
-			}
-			else
+			if (map[next_up][wall_pos_x] && map[next_down][wall_pos_x])
 				data->direct[i] = 'e';
+			else if (map[wall_pos_y][next_left] == 0)
+				data->direct[i] = 'e';
+			else
+				data->direct[i] = 's';
 		}
 	}
 }
 
-void	cast_ray(t_image *img, t_data *data, float angle, int i)
+void	cast_ray(t_image *img, t_data *data, int angle, int i)
 {
 	double	ray_len;
 	int		x;
@@ -97,16 +85,18 @@ void	cast_ray(t_image *img, t_data *data, float angle, int i)
 
 	x = data->pos.x;
 	y = data->pos.y;
-	ray_len = 0;
+	ray_len = 0.0;
 	while (!is_wall(x, y))
 	{
-		x = data->pos.x - (int)(ray_len * sin(angle));
-		y = data->pos.y - (int)(ray_len * cos(angle));
-		ray_len++;
+		x = data->pos.x - (double)(ray_len * (sin(-angle * M_PI / 180.0)));
+		y = data->pos.y - (double)(ray_len * (cos(-angle * M_PI / 180.0)));
+		my_mlx_pixel_put(img, x, y, 0x0000FFFF);
+		ray_len += 1.0;
 	}
 	if (is_wall(x, y))
 	{
 		data->walls[i] = ray_len;
+		my_mlx_pixel_put(img, x, y, 0x0000FFFF);
 		define_direct(data, x, y, i, angle);
 	}
 }
@@ -117,19 +107,17 @@ void	calculate_rays(t_image *img, t_data *data)
 	int		i;
 
 	i = 0;
+	angle = data->pos.angle;
 	angle = data->pos.angle - (RANGE / 2);
-	while (angle < 0)
-		angle += 360;
-	while (angle > 360)
-		angle -= 360;
+//	while (angle < 0)
+//		angle += 360;
+//	while (angle > 360)
+//		angle -= 360;
 	while (i < RANGE)
 	{
 		angle++;
-		while (angle < 0)
-			angle += 360;
-		while (angle >= 360)
-			angle -= 360;
-		cast_ray(img, data, angle * M_PI / 180.0, i);
+		cast_ray(img, data, angle, i);
 		i++;
 	}
+
 }
