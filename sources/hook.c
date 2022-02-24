@@ -57,9 +57,9 @@ int		key_hook(int keycode, t_data *data)
 		shift_position(keycode, data);
 	else if (keycode == KEY_RIGHT)
 	{
-		data->pos.angle += 5;
+		data->pos.angle += 2;
 	}
 	else if (keycode == KEY_LEFT)
-		data->pos.angle -= 5;
+		data->pos.angle -= 2;
 	return (0);
 }

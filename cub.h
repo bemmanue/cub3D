@@ -47,7 +47,7 @@ typedef	struct	s_data
 {
 	t_pos		pos;
 	t_param		mlx;
-	int			walls[RANGE];
+	float		walls[RANGE];
 	char		direct[RANGE];
 	int			x_ratio;
 	int			y_ratio;
