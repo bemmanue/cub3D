@@ -7,8 +7,8 @@
 # include <stdio.h>
 # include <math.h>
 
-#define 	WIDTH		360
-#define		HEIGHT		360
+#define 	WIDTH		400
+#define		HEIGHT		400
 #define 	MAP_WIDTH	10
 #define		MAP_HEIGHT	10
 #define 	X_POSITION	3
@@ -57,11 +57,11 @@ static int ang;
 
 static int	map[10][10] =
 		{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		 {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-		 {1, 0, 0, 0, 0, 1, 1, 1, 0, 1},
-		 {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
-		 {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
-		 {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+		 {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+		 {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+		 {1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
+		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -75,7 +75,7 @@ void	init_data(t_data *data);
 void	init_pos(t_pos *pos, t_data *data);
 
 void	calculate_rays(t_image *img, t_data *data);
-void	cast_ray(t_image *img, t_data *data, float angle, int i);
+void	cast_ray(t_image *img, t_data *data, int angle, int i);
 int		is_wall(int x, int y);
 
 void	draw_map(t_image *img);
