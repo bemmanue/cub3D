@@ -8,10 +8,10 @@ char	is_walls(int x, int y, t_data *data)
 	float	wall_up;
 	float	wall_down;
 
-	middle = (float)HEIGHT / (float)2.0;
-	height = (float)((float)HEIGHT / (float)data->walls[x]) * (float)20.0;
-	wall_up = (float)middle - ((float)height / (float)2.0);
-	wall_down = (float)middle + ((float)height /(float) 2.0);
+	middle = (float)HEIGHT / 2.0;
+	height = ((float)HEIGHT / data->walls[x]) * 20.0;
+	wall_up = middle - (height / 2.0);
+	wall_down = middle + (height / 2.0);
 	if (y >= wall_up && y <= wall_down)
 		return (data->direct[x]);
 	else if (y > wall_down)
