@@ -3,8 +3,8 @@
 # define CUB_H
 
 # include "mlx/mlx.h"
-# include "libft/libft.h"
-# include <parser.h>
+# include "../libft/libft.h"
+//# include <parser.h>
 # include <stdio.h>
 # include <math.h>
 
@@ -33,8 +33,19 @@ typedef struct	s_image
 
 typedef struct	s_param
 {
-	void		*mlx;
-	void		*mlx_win;
+	char	*north_texture; // ./path_to_the_north_texture
+	char	*south_texture; // ./path_to_the_south_texture
+	char	*west_texture; // ./path_to_the_west_texture
+	char	*east_texture; // ./path_to_the_east_texture
+	char	**map; // 1 - стена, 0 - свободное место, 2-5 - NESW соответственно
+	// пробел - место за пределом карты
+	int		floor_color; // 0x00FFFFFF
+	int		ceiling_color; // 0x00FFFFFF
+	int		x_pos; // x-позиция ячейки на карте
+	int		y_pos; // y-позиция ячейки на карте
+	int		angle; // 0/90/180/270
+	int		width; // ширина карты в ячейках
+	int		he ight; // высота карты в ячейках
 }				t_param;
 
 typedef	struct	s_pos
