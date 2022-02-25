@@ -1,10 +1,24 @@
-
 #ifndef PARSER_H
 # define PARSER_H
 
 //# include "cub.h"
 # include "../libft/libft.h"
+# include <get_next_line.h>
 # include <stdio.h>
+# include <fcntl.h>
+
+# define EMPTY 0
+# define MAP 1
+# define NORTH 2
+# define EAST 3
+# define SOUTH 4
+# define WEST 5
+# define CEILING 6
+# define FLOOR 7
+# define NEWS_ERROR 8
+# define NEWS_OP_ER 9
+# define COLORS_ERR 10
+# define MAP_ERROR 11
 
 typedef struct	s_param
 {
@@ -25,7 +39,9 @@ typedef struct	s_param
 
 t_param			*parser(int argc, char **argv);
 
+void			get_info(t_param *info, char *cub);
 
+int				check_str(char *str);
 
 _Noreturn void	err_msg(int flag);
 

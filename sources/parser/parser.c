@@ -7,11 +7,14 @@ static t_param	*init_ret(void)
 	ret = malloc(sizeof (t_param));
 	if (!ret)
 		return (NULL);
-	ret->north_texture = malloc(sizeof (char *));
-	ret->south_texture = malloc(sizeof (char *));
-	ret->west_texture = malloc(sizeof (char *));
-	ret->east_texture = malloc(sizeof (char *));
-	ret->map = malloc(sizeof (char *));
+	ret->map = ft_calloc(1000, sizeof (char *));
+	if (!ret->map)
+		return (NULL);
+	ret->x_pos = 0;
+	ret->y_pos = 0;
+	ret->angle = 0;
+	ret->width = 0;
+	ret->height = 0;
 	return (ret);
 }
 
@@ -23,14 +26,25 @@ _Noreturn void	err_msg(int flag)
 	exit(0);
 }
 
+static void	init_check(int argc, char **argv)
+{
+	char	*temp;
+
+	if (argc != 2)
+		err_msg(0);
+	temp = ft_strrchr(argv[1], '.');
+	if (!temp || ft_strncmp(temp, ".cub", 5))
+		err_msg(0);
+}
+
 t_param	*parser(int argc, char **argv)
 {
 	t_param	*ret;
 
-	if (argc != 2 || !ft_strnstr(argv[1], ".cub", ft_strlen(argv[1])))
-		err_msg(0);
+	init_check(argc, argv);
 	ret = init_ret();
-	if (!ret)
+	if (!ret || !ret->map)
 		return (ret);
+	get_info(ret, argv[1]);
 	return (ret);
 }
