@@ -3,21 +3,18 @@
 
 char	is_walls(int x, int y, t_data *data)
 {
-	int	degree;
-	int	height;
-	int middle;
-	int wall_up;
-	int wall_down;
+	float	height;
+	float	middle;
+	float	wall_up;
+	float	wall_down;
 
-	middle = HEIGHT / 2;
-	degree = (float)x / (float)((float)WIDTH / (float)RANGE);
-	if (degree < RANGE)
-		height = data->walls[degree] ;
-	wall_up = middle - (height / 2);
-	wall_down = middle + (height / 2);
-	if (y > wall_up && y < wall_down)
-		return (data->direct[degree]);
-	else if (y >= wall_down)
+	middle = (float)HEIGHT / (float)2.0;
+	height = (float)((float)HEIGHT / (float)data->walls[x]) * (float)20.0;
+	wall_up = (float)middle - ((float)height / (float)2.0);
+	wall_down = (float)middle + ((float)height /(float) 2.0);
+	if (y >= wall_up && y <= wall_down)
+		return (data->direct[x]);
+	else if (y > wall_down)
 		return ('f');
 	return (0);
 }
@@ -54,7 +51,7 @@ void	draw_walls(t_image *img, t_data *data)
 	}
 }
 
-void	draw_map(t_image *img)
+void	draw_map(t_image *img, t_data *data)
 {
 	int	x;
 	int	y;
@@ -65,7 +62,7 @@ void	draw_map(t_image *img)
 		x = 0;
 		while (x < HEIGHT)
 		{
-			if (is_wall(x, y))
+			if (is_wall(data, x, y))
 				my_mlx_pixel_put(img, x, y, 0x00000099);
 			x++;
 		}

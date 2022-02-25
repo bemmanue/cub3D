@@ -38,7 +38,7 @@ void	shift_position(int keycode, t_data *data)
 		new_x += x_add;
 		new_y += y_add;
 	}
-	if (!is_wall(new_x, new_y))
+	if (!is_wall(data, new_x, new_y))
 	{
 		data->pos.x = new_x;
 		data->pos.y = new_y;
@@ -57,9 +57,15 @@ int		key_hook(int keycode, t_data *data)
 		shift_position(keycode, data);
 	else if (keycode == KEY_RIGHT)
 	{
-		data->pos.angle += 2;
+		data->pos.angle += 2.0;
+//		int	i = 0;
+//		while (i < WIDTH)
+//		{
+//			printf("%f\n", data->walls[i]);
+//			i++;
+//		}
 	}
 	else if (keycode == KEY_LEFT)
-		data->pos.angle -= 2;
+		data->pos.angle -= 2.0;
 	return (0);
 }

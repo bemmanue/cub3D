@@ -1,24 +1,20 @@
 
 #include "../cub.h"
 
-int	is_wall(int x, int y)
+int	is_wall(t_data *data, float x, float y)
 {
 	int		map_pos_x;
 	int		map_pos_y;
-	float	x_ratio;
-	float	y_ratio;
 
-	x_ratio = (float)((float)WIDTH / (float)MAP_WIDTH);
-	y_ratio = (float)((float)HEIGHT / (float)MAP_HEIGHT);
-	map_pos_x = (float)((float)x / (float)x_ratio);
-	map_pos_y = (float)((float)y / (float)y_ratio);
+	map_pos_x = x / data->x_ratio;
+	map_pos_y = y / data->y_ratio;
 	if (map[map_pos_y][map_pos_x] == 1)
 		return (1);
 	else
 		return (0);
 }
 
-void	define_direct(t_data *data, int x, int y, int i, int angle)
+void	define_direct(t_data *data, float x, float y, int i, float angle)
 {
 	int	wall_pos_x;
 	int	wall_pos_y;
@@ -27,12 +23,12 @@ void	define_direct(t_data *data, int x, int y, int i, int angle)
 	int	next_right;
 	int	next_left;
 
-	wall_pos_x = (float)x / (float)((float)WIDTH / (float)MAP_WIDTH);
-	wall_pos_y = (float)y / (float)((float)HEIGHT / (float)MAP_HEIGHT);
-	next_up = (float)(y - 1) / (float)((float)HEIGHT / (float)MAP_HEIGHT);
-	next_down = (float)(y + 1) / (float)((float)HEIGHT / (float)MAP_HEIGHT);
-	next_right = (float)(x + 1) / (float)((float)WIDTH / (float)MAP_WIDTH);
-	next_left = (float)(x - 1) / (float)((float)WIDTH / (float)MAP_WIDTH);
+	wall_pos_x = x / data->x_ratio;
+	wall_pos_y = y / data->y_ratio;
+	next_up = (y - 0.1) / data->y_ratio;
+	next_down = (y + 0.1) / data->y_ratio;
+	next_right = (x + 0.1) / data->x_ratio;
+	next_left = (x - 0.1) / data->x_ratio;
 	if (x < data->pos.x)
 	{
 		if (y < data->pos.y)
@@ -77,48 +73,49 @@ void	define_direct(t_data *data, int x, int y, int i, int angle)
 	}
 }
 
-int	calculate_fov(t_data *data, int angle, double c)
+float	calculate_fov(t_data *data, float angle, float ray_len)
 {
-	int		angle2;
-	double	y2;
+	float	angle2;
+	float	len;
 
-	angle2 = abs(data->pos.angle - angle);
-	y2 = HEIGHT / c * cos(angle2 * M_PI / 180.0);
-	return (y2);
+	angle2 = fabs(data->pos.angle - angle);
+	len = ray_len * cos(angle2 * M_PI / 180.0);
+	return (len);
 }
 
-void	cast_ray(t_image *img, t_data *data, int angle, int i)
+void	cast_ray(t_image *img, t_data *data, float angle, int i)
 {
-	double	ray_len;
-	int		x;
-	int		y;
+	float	ray_len;
+	float	x;
+	float	y;
 
-	x = data->pos.x;
-	y = data->pos.y;
+	x = (float)data->pos.x;
+	y = (float)data->pos.y;
 	ray_len = 0.0;
-	while (!is_wall(x, y))
+	while (!is_wall(data, x, y))
 	{
-		x = data->pos.x - (double)(ray_len * (sin(-angle * M_PI / 180.0)));
-		y = data->pos.y - (double)(ray_len * (cos(-angle * M_PI / 180.0)));
-		ray_len += 1.0;
+		x = (float)data->pos.x - (ray_len * (sin(-angle * M_PI / 180.0)));
+		y = (float)data->pos.y - (ray_len * (cos(-angle * M_PI / 180.0)));
+		my_mlx_pixel_put(img, x, y, 0x0000FFFF);
+		ray_len += 0.0500;
 	}
-	if (is_wall(x, y))
-	{
-		data->walls[i] = calculate_fov(data, angle, ray_len);
-		define_direct(data, x, y, i, angle);
-	}
+//	my_mlx_pixel_put(img, x, y, 0x0000FFFF);
+	data->walls[i] = calculate_fov(data, angle, ray_len);
+	define_direct(data, x, y, i, angle);
 }
 
 void	calculate_rays(t_image *img, t_data *data)
 {
-	int		angle;
+	float	angle;
+	float	ratio;
 	int		i;
 
-	i = 0;
 	angle = data->pos.angle - (RANGE / 2);
-	while (i < RANGE)
+	ratio = (float)RANGE / (float)WIDTH;
+	i = 0;
+	while (i < WIDTH)
 	{
-		angle++;
+		angle += (float)ratio;
 		cast_ray(img, data, angle, i);
 		i++;
 	}

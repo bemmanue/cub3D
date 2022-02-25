@@ -13,7 +13,7 @@
 #define		MAP_HEIGHT	10
 #define 	X_POSITION	3
 #define		Y_POSITION	7
-#define		RANGE		90
+#define		RANGE		66
 # define 	ARROW_RIGHT 124
 # define 	ARROW_LEFT 	123
 # define 	ARROW_UP	126
@@ -40,17 +40,17 @@ typedef	struct	s_pos
 {
 	int			x;
 	int			y;
-	int			angle;
+	float		angle;
 }				t_pos;
 
 typedef	struct	s_data
 {
 	t_pos		pos;
 	t_param		mlx;
-	float		walls[RANGE];
-	char		direct[RANGE];
-	int			x_ratio;
-	int			y_ratio;
+	float		walls[WIDTH];
+	char		direct[WIDTH];
+	float		x_ratio;
+	float		y_ratio;
 }				t_data;
 
 static int ang;
@@ -59,7 +59,7 @@ static int	map[10][10] =
 		{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		 {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-		 {1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
+		 {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -75,10 +75,10 @@ void	init_data(t_data *data);
 void	init_pos(t_pos *pos, t_data *data);
 
 void	calculate_rays(t_image *img, t_data *data);
-void	cast_ray(t_image *img, t_data *data, int angle, int i);
-int		is_wall(int x, int y);
+void	cast_ray(t_image *img, t_data *data, float angle, int i);
+int		is_wall(t_data *data, float x, float y);
 
-void	draw_map(t_image *img);
+void	draw_map(t_image *img, t_data *data);
 void	draw_walls(t_image *img, t_data *data);
 char	is_walls(int x, int y, t_data *data);
 
