@@ -19,11 +19,19 @@ char	is_walls(int x, int y, t_data *data)
 	return (0);
 }
 
+unsigned int	*define_color(t_data *data, int x, int y)
+{
+	unsigned int	*color;
+
+
+	return (color);
+}
+
 void	draw_walls(t_image *img, t_data *data)
 {
-	int		x;
-	int		y;
-	char	color;
+	int				x;
+	int				y;
+	unsigned int	*color;
 
 	y = 0;
 	while (y < HEIGHT)
@@ -31,20 +39,8 @@ void	draw_walls(t_image *img, t_data *data)
 		x = 0;
 		while (x < WIDTH)
 		{
-			color = is_walls(x, y, data);
-			if (color)
-			{
-				if (color == 'n')
-					my_mlx_pixel_put(img, x, y, 0x00009955);
-				else if (color == 'e')
-					my_mlx_pixel_put(img, x, y, 0x0000AA99);
-				else if (color == 's')
-					my_mlx_pixel_put(img, x, y, 0x0000CC77);
-				else if (color == 'w')
-					my_mlx_pixel_put(img, x, y, 0x0055DD00);
-				else if (color == 'f')
-					my_mlx_pixel_put(img, x, y, 0x0055DD77);
-			}
+			color = define_color(data, x, y);
+			my_mlx_pixel_put(img, x, y, *color);
 			x++;
 		}
 		y++;

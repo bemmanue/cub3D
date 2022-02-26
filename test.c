@@ -9,21 +9,33 @@ void	my_mlx_pix_put(t_image *image, int x, int y, unsigned int color)
 	*(unsigned int*)dst = color;
 }
 
+unsigned int	*define_color(t_image *buf, int w, int h, int x, int y)
+{
+	unsigned int	*color;
+	int				pos_x;
+	int				pos_y;
+
+	pos_x = ((float)x / (float)WIDTH) * (float)w;
+	pos_y = ((float)y / (float)HEIGHT) * (float)h;
+	color = (unsigned int *)(buf->addr + (pos_y * buf->len + pos_x * (buf->bpp / 8)));
+	return (color);
+}
+
 void	draw_imag(t_image *img, t_data *data, t_image *buf, int w, int h)
 {
-	int	x;
-	int y;
-	unsigned int *color;
+	int				x;
+	int 			y;
+	unsigned int	*color;
 
-	my_mlx_pix_put(buf, 100, 100, 0x00009F5F);
-//	color = 0x00991188;
+	color = define_color(buf, w, h, 50, 50);
 	y = 0;
-	while (y < h)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < 10)
+		while (x < WIDTH)
 		{
-			color = (unsigned int *)(buf->addr + (y * buf->len + x * (buf->bpp / 8)));
+			color = define_color(buf, w, h, x, y);
+//			color = (unsigned int *)(buf->addr + (y * buf->len + x * (buf->bpp / 8)));
 			my_mlx_pix_put(img, x, y, *color);
 			x++;
 		}
@@ -42,11 +54,10 @@ int	render_next_frame(t_data *data)
 
 	buf.img = mlx_xpm_file_to_image(data->mlx.mlx, relative_path, &img_width, &img_height);
 	if (img_width >= WIDTH || img_height >= HEIGHT)
-		return (0);
+		return (-1);
 	buf.addr = mlx_get_data_addr(buf.img, &buf.bpp, &buf.len, &buf.end);
 	img.img = mlx_new_image(data->mlx.mlx, WIDTH, HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.len, &img.end);
-
 	draw_imag(&img, data, &buf, img_width, img_height);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.mlx_win, img.img, 0, 0);
 	return (0);
