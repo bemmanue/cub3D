@@ -43,10 +43,18 @@ typedef	struct	s_pos
 	float		angle;
 }				t_pos;
 
+typedef	struct	s_texture
+{
+	int			width;
+	int			height;
+	t_image		*image;
+}				t_texture;
+
 typedef	struct	s_data
 {
 	t_pos		pos;
 	t_param		mlx;
+	t_texture	*texture;
 	float		walls[WIDTH];
 	char		direct[WIDTH];
 	float		x_ratio;
@@ -69,7 +77,7 @@ static int	map[10][10] =
 
 int		render_next_frame(t_data *data);
 void	draw_image(t_image *img, t_data *data);
-void	my_mlx_pixel_put(t_image *image, int x, int y, int color);
+void	my_mlx_pixel_put(t_image *image, int x, int y, unsigned int color);
 
 void	init_data(t_data *data);
 void	init_pos(t_pos *pos, t_data *data);

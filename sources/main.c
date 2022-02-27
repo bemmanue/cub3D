@@ -1,7 +1,7 @@
 
 #include "../cub.h"
 
-void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
+void	my_mlx_pixel_put(t_image *image, int x, int y, unsigned int color)
 {
 	char	*dst;
 
@@ -11,7 +11,7 @@ void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
 
 void	draw_image(t_image *img, t_data *data)
 {
-	my_mlx_pixel_put(img, data->pos.x, data->pos.y, 0x0000FFFF);
+//	my_mlx_pixel_put(img, data->pos.x, data->pos.y, 0x0000FFFF);
 //	draw_map(img, data);
 	calculate_rays(img, data);
 	draw_walls(img, data);
@@ -32,8 +32,8 @@ int main(void)
 {
 	t_data	data;
 
-	init_data(&data);
 	data.mlx.mlx = mlx_init();
+	init_data(&data);
 	data.mlx.mlx_win = mlx_new_window(data.mlx.mlx, WIDTH, HEIGHT, "Cub3D");
 	mlx_hook(data.mlx.mlx_win, 2, 0, key_hook, &data);
 	mlx_loop_hook(data.mlx.mlx, render_next_frame, &data);
