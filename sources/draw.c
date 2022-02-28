@@ -19,26 +19,42 @@ char	is_walls(int x, int y, t_data *data)
 	return (0);
 }
 
-unsigned int	*define_color(t_data *data, int x, float y)
+float	find_width(t_data *data, float x, float y)
+{
+	float	width;
+	char	direct;
+
+
+	direct = is_walls(x, y, data);
+	if (direct == 'n' || direct == 's')
+		width = ((int)x % (int)(HEIGHT / 10.0)) / (float)(HEIGHT / 10.0);
+	else
+		width = ((int)y % (int)(WIDTH / 10.0)) / (float)(WIDTH / 10.0);
+	return (width);
+}
+
+unsigned int	*define_color(t_data *data, float x, float y)
 {
 	unsigned int	*color;
 	float			height;
+	float			width;
 	float			middle;
 	float			wall_up;
 	float			wall_down;
 	int				pos_x;
 	int				pos_y;
 
+	width = find_width(data, x, y);
 	middle = (float)HEIGHT / 2.0;
-	height = ((float)HEIGHT / data->walls[x]) * 20.0;
+	height = ((float)HEIGHT / data->walls[(int)x]) * 20.0;
 	wall_up = middle - (height / 2.0);
 	wall_down = middle + (height / 2.0);
 	y = ((float)y - (float)wall_up);
 
-	pos_x = ((float)x / (float)WIDTH) * (float)data->texture->width;
+	pos_x = (float)width * (float)data->texture->width;
 	pos_y = ((float)y / (float)height) * (float)data->texture->height;
 	color = (unsigned int *)(data->texture->image->addr
-			+ (pos_y * data->texture->image->len + pos_x * (data->texture->image->bpp / 8)));
+		+ (pos_y * data->texture->image->len + pos_x * (data->texture->image->bpp / 8)));
 	return (color);
 }
 
