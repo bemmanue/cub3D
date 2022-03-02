@@ -57,6 +57,10 @@ typedef	struct	s_data
 	t_texture	*texture;
 	float		walls[WIDTH];
 	char		direct[WIDTH];
+	int			block_xpos[WIDTH];
+	int			block_ypos[WIDTH];
+	int			x_pos[WIDTH];
+	int			y_pos[WIDTH];
 	float		x_ratio;
 	float		y_ratio;
 }				t_data;

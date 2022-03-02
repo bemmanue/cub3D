@@ -17,9 +17,8 @@ t_texture	*init_texture(t_data *data)
 		return (NULL);
 	texture = malloc(sizeof(t_texture));
 	texture->image = malloc(sizeof(t_image));
-	texture->image->img = mlx_xpm_file_to_image(data->mlx.mlx, relative_path, &texture->width, &texture->height);
-	printf("%d\n", texture->width);
-	printf("%d\n", texture->height);
+	texture->image->img = mlx_xpm_file_to_image
+		(data->mlx.mlx, relative_path, &texture->width, &texture->height);
 	texture->image->addr = mlx_get_data_addr
 		(texture->image->img, &texture->image->bpp, &texture->image->len, &texture->image->end);
 	return (texture);

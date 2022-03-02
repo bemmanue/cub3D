@@ -71,6 +71,22 @@ float	calculate_fov(t_data *data, float angle, float ray_len)
 	return (len);
 }
 
+int	define_blockxpos(t_data *data, float x)
+{
+	int		pos;
+
+	pos = (int)(x / data->x_ratio);
+	return (pos);
+}
+
+int	define_blockypos(t_data *data, float y)
+{
+	int		pos;
+
+	pos = (int)(y / data->y_ratio);
+	return (pos);
+}
+
 void	cast_ray(t_image *img, t_data *data, float angle, int i)
 {
 	float	ray_len;
@@ -91,6 +107,10 @@ void	cast_ray(t_image *img, t_data *data, float angle, int i)
 //	my_mlx_pixel_put(img, x, y, 0x0000FFFF);
 	data->walls[i] = calculate_fov(data, angle, ray_len);
 	data->direct[i] = define_direct(data, x, y);
+	data->block_xpos[i] = define_blockxpos(data, x);
+	data->block_ypos[i] = define_blockypos(data, y);
+	data->x_pos[i] = (int)x;
+	data->y_pos[i] = (int)y;
 }
 
 void	calculate_rays(t_image *img, t_data *data)

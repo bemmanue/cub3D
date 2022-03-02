@@ -19,17 +19,64 @@ char	is_walls(int x, int y, t_data *data)
 	return (0);
 }
 
-float	find_width(t_data *data, float x, float y)
+int	get_end(t_data *data, int x, int y)
+{
+	int end;
+
+	end = x;
+	while (data->block_ypos[end] == data->block_ypos[x])
+	{
+		end++;
+	}
+//	end = data->x_pos[end];
+	return (end);
+}
+
+int	get_start(t_data *data, int x, int y)
+{
+	int start;
+
+	start = x;
+	while (data->block_ypos[start] == data->block_ypos[x])
+	{
+		start--;
+	}
+//	start = data->x_pos[start];
+	return (start);
+}
+
+float	calculate_ratio(t_data *data, int x, int y)
+{
+	float	ratio;
+	int		start;
+	int		end;
+
+	start = get_start(data, x, y);
+//	printf("start = %d\n", start);
+	end = get_end(data, x, y);
+//	printf("end = %d\n", end);
+	ratio = end - start;
+	if (ratio == 0.0)
+		ratio = 5.0;
+	return (ratio);
+}
+
+float	find_width(t_data *data, int x, int y)
 {
 	float	width;
 	char	direct;
+	float	ratio;
 
-
+	ratio = calculate_ratio(data, x, y);
 	direct = is_walls(x, y, data);
 	if (direct == 'n' || direct == 's')
-		width = ((int)x % (int)(HEIGHT / 10.0)) / (float)(HEIGHT / 10.0);
+		width = ((int)x % (int)ratio) / ratio;
 	else
-		width = ((int)y % (int)(WIDTH / 10.0)) / (float)(WIDTH / 10.0);
+		width = ((int)y % (int)ratio) / ratio;
+//	if (direct == 'n' || direct == 's')
+//		width = ((int)x % (int)(HEIGHT / 10.0)) / (float)(HEIGHT / 10.0);
+//	else
+//		width = ((int)y % (int)(WIDTH / 10.0)) / (float)(WIDTH / 10.0);
 	return (width);
 }
 
