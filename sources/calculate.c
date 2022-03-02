@@ -68,6 +68,7 @@ float	calculate_fov(t_data *data, float angle, float ray_len)
 
 	angle2 = fabs(data->pos.angle - angle);
 	len = ray_len * cos(angle2 * M_PI / 180.0);
+//	len = ray_len;
 	return (len);
 }
 
@@ -75,7 +76,7 @@ int	define_blockxpos(t_data *data, float x)
 {
 	int		pos;
 
-	pos = (int)(x / data->x_ratio);
+	pos = (int)((float)x / data->x_ratio);
 	return (pos);
 }
 
@@ -83,7 +84,7 @@ int	define_blockypos(t_data *data, float y)
 {
 	int		pos;
 
-	pos = (int)(y / data->y_ratio);
+	pos = (int)((float)y / data->y_ratio);
 	return (pos);
 }
 
@@ -102,7 +103,7 @@ void	cast_ray(t_image *img, t_data *data, float angle, int i)
 		x = (float)data->pos.x + (ray_len * (sin(angle * M_PI / 180.0)));
 		y = (float)data->pos.y - (ray_len * (cos(angle * M_PI / 180.0)));
 //		my_mlx_pixel_put(img, x, y, 0x0000FFFF);
-		ray_len += 0.0500;
+		ray_len += 0.05;
 	}
 //	my_mlx_pixel_put(img, x, y, 0x0000FFFF);
 	data->walls[i] = calculate_fov(data, angle, ray_len);
@@ -111,6 +112,7 @@ void	cast_ray(t_image *img, t_data *data, float angle, int i)
 	data->block_ypos[i] = define_blockypos(data, y);
 	data->x_pos[i] = (int)x;
 	data->y_pos[i] = (int)y;
+	data->ang[i] = angle;
 }
 
 void	calculate_rays(t_image *img, t_data *data)
