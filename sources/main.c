@@ -12,7 +12,7 @@ void	my_mlx_pixel_put(t_image *image, int x, int y, unsigned int color)
 void	draw_image(t_image *img, t_data *data)
 {
 //	my_mlx_pixel_put(img, data->pos.x, data->pos.y, 0x0000FFFF);
-//	draw_map(img, data);
+	draw_map(img, data);
 	calculate_rays(img, data);
 	draw_walls(img, data);
 }

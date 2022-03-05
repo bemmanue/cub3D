@@ -61,6 +61,8 @@ typedef	struct	s_data
 	int			block_ypos[WIDTH];
 	int			x_pos[WIDTH];
 	int			y_pos[WIDTH];
+	float		perpwalldist[WIDTH];
+	float		perpwalldist2[WIDTH];
 	float 		ang[WIDTH];
 	float		x_ratio;
 	float		y_ratio;

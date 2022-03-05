@@ -88,6 +88,62 @@ int	define_blockypos(t_data *data, float y)
 	return (pos);
 }
 
+int	is_perpwall(t_data *data, int x, int y, int i)
+{
+	int		map_pos_x;
+	int		map_pos_y;
+	int		player_pos_x;
+	int		player_pos_y;
+
+	if (data->perpwalldist[i] != 0)
+		return (0);
+	map_pos_x = (float)x / (float)data->x_ratio;
+	map_pos_y = (float)y / (float)data->y_ratio;
+	player_pos_x = (float)data->pos.x / (float)data->x_ratio;
+	player_pos_y = (float)data->pos.x / (float)data->y_ratio;
+	if (map_pos_x - 1 == player_pos_x || map_pos_x + 1 == player_pos_x)
+	{
+		if (map_pos_y - 1 == player_pos_y
+			|| map_pos_y + 1 == player_pos_y)
+			return (1);
+	}
+	if (map_pos_y - 1 == player_pos_y || map_pos_y + 1 == player_pos_y)
+	{
+		if (map_pos_x - 1 == player_pos_x
+			|| map_pos_x + 1 == player_pos_x)
+			return (1);
+	}
+	return (0);
+}
+
+int	is_perpwall2(t_data *data, int x, int y, int i)
+{
+	int		map_pos_x;
+	int		map_pos_y;
+	int		player_pos_x;
+	int		player_pos_y;
+
+	if (data->perpwalldist2[i] != 0)
+		return (0);
+	map_pos_x = (float)x / (float)data->x_ratio;
+	map_pos_y = (float)y / (float)data->y_ratio;
+	player_pos_x = (float)data->pos.x / (float)data->x_ratio;
+	player_pos_y = (float)data->pos.x / (float)data->y_ratio;
+	if (map_pos_x - 2 == player_pos_x || map_pos_x + 2 == player_pos_x)
+	{
+		if (map_pos_y - 1 == player_pos_y
+			|| map_pos_y + 1 == player_pos_y)
+			return (1);
+	}
+	if (map_pos_y - 2 == player_pos_y || map_pos_y + 2 == player_pos_y)
+	{
+		if (map_pos_x - 1 == player_pos_x
+			|| map_pos_x + 1 == player_pos_x)
+			return (1);
+	}
+	return (0);
+}
+
 void	cast_ray(t_image *img, t_data *data, float angle, int i)
 {
 	float	ray_len;
@@ -97,9 +153,13 @@ void	cast_ray(t_image *img, t_data *data, float angle, int i)
 	x = (float)data->pos.x;
 	y = (float)data->pos.y;
 	ray_len = 0.0;
+	data->perpwalldist[i] = 0;
 	while (!is_wall(data, x, y))
 	{
-
+		if (is_perpwall(data, x, y, i))
+			data->perpwalldist[i] = ray_len;
+		if (is_perpwall2(data, x, y, i))
+			data->perpwalldist2[i] = ray_len;
 		x = (float)data->pos.x + (ray_len * (sin(angle * M_PI / 180.0)));
 		y = (float)data->pos.y - (ray_len * (cos(angle * M_PI / 180.0)));
 //		my_mlx_pixel_put(img, x, y, 0x0000FFFF);

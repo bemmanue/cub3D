@@ -11,6 +11,7 @@ int	get_end(t_data *data, int x, int y)
 	{
 		end++;
 	}
+	end = data->ang[end];
 	return (end);
 }
 
@@ -24,6 +25,7 @@ int	get_start(t_data *data, int x, int y)
 	{
 		start--;
 	}
+	start = data->ang[start];
 	return (start);
 }
 
@@ -41,14 +43,23 @@ float	calculate_ratio(t_data *data, int x, int y)
 	return (ratio);
 }
 
-float	find_width(t_data *data, int x, int y)
+float	find_width(t_data *data, int x, int y, int h)
 {
-	float	width;
-	char	direct;
+	double	width;
+	double	wall;
 	float	ratio;
+	double		p;
 
-	ratio = calculate_ratio(data, x, y);
-	width = ((int)x % (int)ratio) / (float)ratio;
+	p = (float)y / (float)data->y_ratio;
+//	ratio = calculate_ratio(data, x, y);
+//	ratio = (float)(WIDTH / MAP_WIDTH) / direct;
+//	ratio = (WIDTH / MAP_WIDTH) / (data->pos.x - data->x_pos[x]) / 40.0;
+//	width = ((int)x % (int)ratio) / (float)ratio;
+//	width = (x % (int)((float)WIDTH / (float)MAP_WIDTH)) / (float)(WIDTH / MAP_WIDTH);
+wall = (double)p + (double)((double)data->walls[x]) * (double)((double)data->pos.y - (double)data->y_pos[x]);
+	wall -= floor(wall);
+	width = (int)(wall * (double)64.0);
+//	width = 64.0 - width - 1.0;
 	return (width);
 }
 
@@ -59,10 +70,10 @@ unsigned int	*define_color(t_data *data, int x, int y, int wall_height, int up, 
 	int				pos_x;
 	int				pos_y;
 
+	width = find_width(data, x, y, wall_height);
 	y = y - up;
-	width = find_width(data, x, y);
 	pos_x = (float)width * (float)data->texture->width;
-	pos_y = ((float) y / (float) wall_height) *
+	pos_y = ((float)y / (float) wall_height) *
 			(float) data->texture->height;
 	color = (unsigned int *) (data->texture->image->addr
 		  + (pos_y * data->texture->image->len +
