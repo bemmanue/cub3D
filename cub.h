@@ -36,13 +36,6 @@ typedef struct	s_param
 	void		*mlx_win;
 }				t_param;
 
-typedef	struct	s_pos
-{
-	int			x;
-	int			y;
-	float		angle;
-}				t_pos;
-
 typedef	struct	s_texture
 {
 	int			width;
@@ -52,20 +45,22 @@ typedef	struct	s_texture
 
 typedef	struct	s_data
 {
-	t_pos		pos;
 	t_param		mlx;
 	t_texture	*texture;
-	float		walls[WIDTH];
+	t_image		image;
+	double		angle;
+	double		posx;
+	double 		posy;
+	double		walls[WIDTH];
 	char		direct[WIDTH];
 	int			block_xpos[WIDTH];
 	int			block_ypos[WIDTH];
 	int			x_pos[WIDTH];
 	int			y_pos[WIDTH];
-	float		perpwalldist[WIDTH];
-	float		perpwalldist2[WIDTH];
-	float 		ang[WIDTH];
-	float		x_ratio;
-	float		y_ratio;
+	double		len[WIDTH];
+	double 		ang[WIDTH];
+	double		x_ratio;
+	double		y_ratio;
 }				t_data;
 
 static int ang;
@@ -82,19 +77,15 @@ static int	map[10][10] =
 		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
-int		render_next_frame(t_data *data);
-void	draw_image(t_image *img, t_data *data);
 void	my_mlx_pixel_put(t_image *image, int x, int y, unsigned int color);
-
 void	init_data(t_data *data);
-void	init_pos(t_pos *pos, t_data *data);
 
-void	calculate_rays(t_image *img, t_data *data);
-void	cast_ray(t_image *img, t_data *data, float angle, int i);
-int		is_wall(t_data *data, float x, float y);
+void	calculate_rays(t_data *data);
+void	cast_ray(t_data *data, double angle, int i);
+int		is_wall(t_data *data, double x, double y);
 
-void	draw_map(t_image *img, t_data *data);
-void	draw_walls(t_image *img, t_data *data);
+void	draw_map(t_data *data);
+void	draw_walls(t_data *data);
 char	is_walls(int x, int y, t_data *data);
 
 int		key_hook(int keycode, t_data *data);

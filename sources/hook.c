@@ -8,7 +8,7 @@ void	shift_position(int keycode, t_data *data)
 	float	angle;
 	float 	distance;
 
-	distance = 10.0;
+	distance = 1.0;
 	if (keycode == ARROW_UP)
 		angle = 0.0;
 	else if (keycode == ARROW_DOWN)
@@ -17,12 +17,12 @@ void	shift_position(int keycode, t_data *data)
 		angle = -90.0;
 	else if (keycode == ARROW_RIGHT)
 		angle = 90.0;
-	new_x = data->pos.x + (distance * (sin((data->pos.angle + angle) * M_PI / 180.0)));
-	new_y = data->pos.y - (distance * (cos((data->pos.angle + angle) * M_PI / 180.0)));
+	new_x = data->posx + (distance * (sin((data->angle + angle) * M_PI / 180.0)));
+	new_y = data->posy - (distance * (cos((data->angle + angle) * M_PI / 180.0)));
 	if (!is_wall(data, new_x, new_y))
 	{
-		data->pos.x = new_x;
-		data->pos.y = new_y;
+		data->posx = new_x;
+		data->posy = new_y;
 	}
 }
 
@@ -32,8 +32,8 @@ int		key_hook(int keycode, t_data *data)
 		|| keycode == ARROW_RIGHT || keycode == ARROW_LEFT)
 		shift_position(keycode, data);
 	else if (keycode == KEY_RIGHT)
-		data->pos.angle += 3.0;
+		data->angle += 3.0;
 	else if (keycode == KEY_LEFT)
-		data->pos.angle -= 3.0;
+		data->angle -= 3.0;
 	return (0);
 }

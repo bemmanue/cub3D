@@ -50,77 +50,75 @@ float	find_width(t_data *data, int x, int y, int h)
 	float	ratio;
 	double		p;
 
-	p = (float)y / (float)data->y_ratio;
-//	ratio = calculate_ratio(data, x, y);
-//	ratio = (float)(WIDTH / MAP_WIDTH) / direct;
-//	ratio = (WIDTH / MAP_WIDTH) / (data->pos.x - data->x_pos[x]) / 40.0;
-//	width = ((int)x % (int)ratio) / (float)ratio;
-//	width = (x % (int)((float)WIDTH / (float)MAP_WIDTH)) / (float)(WIDTH / MAP_WIDTH);
-wall = (double)p + (double)((double)data->walls[x]) * (double)((double)data->pos.y - (double)data->y_pos[x]);
+	p = (double)y / (double)data->y_ratio;
+	wall = p + (double)(data->walls[x]) * ((data->posy - data->y_pos[x]));
 	wall -= floor(wall);
-	width = (int)(wall * (double)64.0);
+	width = wall * data->texture->width;
+//	printf("%f\n", width);
 //	width = 64.0 - width - 1.0;
 	return (width);
 }
 
-unsigned int	*define_color(t_data *data, int x, int y, int wall_height, int up, t_image *img)
+unsigned int	*define_color(t_data *data, int x, int y, int wall_height, int up)
 {
 	unsigned int	*color;
-	float			width;
+	double			width;
 	int				pos_x;
 	int				pos_y;
+	int				new_y;
 
-	width = find_width(data, x, y, wall_height);
-	y = y - up;
-	pos_x = (float)width * (float)data->texture->width;
-	pos_y = ((float)y / (float) wall_height) *
-			(float) data->texture->height;
+//	width = find_width(data, x, y, wall_height);
+	new_y = y - up;
+	pos_x = (2 / 64) * (double)data->texture->width;
+	pos_y = ((double)new_y / (double) wall_height) *
+			(double) data->texture->height;
+//	printf("y = %d\n", pos_y);
 	color = (unsigned int *) (data->texture->image->addr
 		  + (pos_y * data->texture->image->len +
 		  pos_x * (data->texture->image->bpp / 8)));
 	return (color);
 }
 
-void	print_line(t_image *img, t_data *data, int x)
+void	print_line(t_data *data, int x)
 {
 	int				y;
-	float			wall_height;
-	int				up;
-	int				down;
+	double			wall_height;
+	double			up;
+	double			down;
 	unsigned int	*color;
 
-	wall_height = ((float)HEIGHT / (float)data->walls[x]) * (float)40.0;
-	up = (float)((float)HEIGHT - (float)wall_height) / (float)2.0;
-	down = (float)((float)HEIGHT + (float)wall_height) / (float)2.0;
+	wall_height = ((double)HEIGHT / (data->walls[x] * 40.0)) * 40.0;
+	up = ((double)HEIGHT - wall_height) / 2.0;
+	down = ((double)HEIGHT + wall_height) / 2.0;
 	y = 0;
 	while (y < HEIGHT)
 	{
 		if (y <= up)
-			my_mlx_pixel_put(img, x, y, 0x0099CCDD);
+			my_mlx_pixel_put(&data->image, x, y, 0x0099CCDD);
 		else if (y < down)
 		{
-			color = define_color(data, x, y, wall_height, up, img);
-			my_mlx_pixel_put(img, x, y, *color);
+			color = define_color(data, x, y, wall_height, up);
+			my_mlx_pixel_put(&data->image, x, y, *color);
 		}
 		else
-			my_mlx_pixel_put(img, x, y, 0x0055AA88);
+			my_mlx_pixel_put(&data->image, x, y, 0x0055AA88);
 		y++;
 	}
 }
 
-void	draw_walls(t_image *img, t_data *data)
+void	draw_walls(t_data *data)
 {
 	int	x;
 
 	x = 0;
 	while (x < WIDTH)
 	{
-		print_line(img, data, x);
+		print_line(data, x);
 		x++;
 	}
 }
 
-void	draw_map(t_image *img, t_data *data)
+void	draw_map(t_data *data)
 {
 	int	x;
 	int	y;
@@ -131,8 +129,8 @@ void	draw_map(t_image *img, t_data *data)
 		x = 0;
 		while (x < HEIGHT)
 		{
-			if (is_wall(data, x, y))
-				my_mlx_pixel_put(img, x, y, 0x00000099);
+			if (is_wall(data, x / data->x_ratio, y / data->y_ratio))
+				my_mlx_pixel_put(&data->image, x, y, 0x00000099);
 			x++;
 		}
 		y++;
