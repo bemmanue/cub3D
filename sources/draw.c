@@ -1,71 +1,48 @@
 
 #include "../cub.h"
 
-int	get_end(t_data *data, int x, int y)
+int	is_textstart(int x, t_data *data)
 {
-	int end;
-	int i = 0;
+	double	i;
+	int		count;
 
-	end = x;
-	while (data->block_ypos[end] == data->block_ypos[x])
+	i = 0.0;
+	count = 0;
+	if (data->direct[x] == 'n' || data->direct[x] == 's')
 	{
-		end++;
+		while (i < 64)
+		{
+			if (data->block_xpos[x] <= (int)data->block_xpos[x] + (i / 64.0)
+			&& data->block_xpos[x] > (int)data->block_xpos[x])
+				count++;
+			i += 1.0;
+		}
 	}
-	end = data->ang[end];
-	return (end);
-}
-
-int	get_start(t_data *data, int x, int y)
-{
-	int start;
-	int i = 0;
-
-	start = x;
-	while (data->block_ypos[start] == data->block_ypos[x])
+	else if (data->direct[x] == 'w' || data->direct[x] == 'e')
 	{
-		start--;
+		while (i < 64)
+		{
+			if (data->block_ypos[x] <= (int)data->block_ypos[x] + (i / 64.0)
+			&& data->block_ypos[x] > (int)data->block_ypos[x])
+				count++;
+			i += 1.0;
+		}
 	}
-	start = data->ang[start];
-	return (start);
+	return (count);
 }
 
-float	calculate_ratio(t_data *data, int x, int y)
-{
-	float	ratio;
-	int		start;
-	int		end;
-
-	start = get_start(data, x, y);
-	end = get_end(data, x, y);
-	ratio = end - start;
-	if (ratio == 0.0)
-		ratio = 5.0;
-	return (ratio);
-}
-
-float	find_width(t_data *data, int x, int y, int h)
-{
-	double	width;
-	double	wall;
-
-	wall = data->posy +
-		(data->walls[x]) * (fabs(data->posy - data->block_ypos[x]));
-	wall -= floor(wall);
-	width = wall * (double) data->texture->width;
-	return (width);
-}
 
 unsigned int	*define_color(t_data *data, int x, int y, int wall_height, int up)
 {
 	unsigned int	*color;
-	double			new_x;
 	int				text_x;
 	int				text_y;
 	int				new_y;
+	int				count;
 
-	new_x = find_width(data, x, y, wall_height);
+	count = is_textstart(x, data);
 	new_y = y - up;
-	text_x = new_x - 1;
+	text_x = count - 1;
 	text_y = ((double)new_y / (double) wall_height) *
 			(double) data->texture->height - 1;
 	color = (unsigned int *) (data->texture->image->addr
@@ -94,10 +71,6 @@ void	print_line(t_data *data, int x)
 		{
 			color = define_color(data, x, y, wall_height, up);
 			my_mlx_pixel_put(&data->image, x, y, *color);
-//			if (data->direct[x] == 's' || data->direct[x] == 'n')
-//				my_mlx_pixel_put(&data->image, x, y, 0x0000AAFF);
-//			else
-//				my_mlx_pixel_put(&data->image, x, y, 0x00FFAA00);
 		}
 		else
 			my_mlx_pixel_put(&data->image, x, y, 0x0055AA88);

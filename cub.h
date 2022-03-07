@@ -53,10 +53,10 @@ typedef	struct	s_data
 	double 		posy;
 	double		walls[WIDTH];
 	char		direct[WIDTH];
-	int			block_xpos[WIDTH];
-	int			block_ypos[WIDTH];
-	int			x_pos[WIDTH];
-	int			y_pos[WIDTH];
+	double		block_xpos[WIDTH];
+	double		block_ypos[WIDTH];
+	double		x_pos[WIDTH];
+	double		y_pos[WIDTH];
 	double		len[WIDTH];
 	double 		ang[WIDTH];
 	double		x_ratio;

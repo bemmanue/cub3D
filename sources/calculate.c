@@ -63,9 +63,9 @@ void	cast_ray(t_data *data, double angle, int i)
 	ray_len = 0.0;
 	while (!is_wall(data, x, y))
 	{
-		x = (float)data->posx + (ray_len * (sin(angle * M_PI / 180.0)));
-		y = (float)data->posy - (ray_len * (cos(angle * M_PI / 180.0)));
-		my_mlx_pixel_put(&data->image, x * 40.0, y * 40.0, 0x0000FFFF);
+		x = data->posx + (ray_len * (sin(angle * M_PI / 180.0)));
+		y = data->posy - (ray_len * (cos(angle * M_PI / 180.0)));
+//		my_mlx_pixel_put(&data->image, x * 40.0, y * 40.0, 0x0000FFFF);
 		ray_len += 0.01;
 	}
 	data->walls[i] = ray_len * cos(fabs(data->angle - angle) * M_PI / 180.0);

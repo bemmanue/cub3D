@@ -4,7 +4,7 @@
 t_texture	*init_texture(t_data *data)
 {
 	t_texture	*texture;
-	char		*relative_path = "./textures/blue.xpm";
+	char		*relative_path = "./textures/grey.xpm";
 
 	if (!fopen(relative_path, "r"))
 		return (NULL);
