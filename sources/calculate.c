@@ -3,25 +3,21 @@
 
 char	define_direct(t_data *data, double x, double y)
 {
-	int		pos_x;
-	int		pos_y;
-	int		next_up;
-	int		next_down;
-	int		next_right;
-	int		next_left;
+	double	next_up;
+	double	next_down;
+	double	next_right;
+	double	next_left;
 	char	direct;
 
-	pos_x = x / data->x_ratio;
-	pos_y = y / data->y_ratio;
-	next_up = (y - 0.1) / data->y_ratio;
-	next_down = (y + 0.1) / data->y_ratio;
-	next_right = (x + 0.1) / data->x_ratio;
-	next_left = (x - 0.1) / data->x_ratio;
+	next_up = y - 0.01;
+	next_down = y + 0.01;
+	next_right = x + 0.01;
+	next_left = x - 0.01;
 	if (x < data->posx)
 	{
-		if (map[next_up][pos_x] && map[next_down][pos_x])
+		if (map[(int)next_up][(int)x] && map[(int)next_down][(int)x])
 			direct = 'w';
-		else if (map[pos_y][next_right] == 0)
+		else if (map[(int)y][(int)next_right] == 0)
 			direct = 'w';
 		else
 		{
@@ -33,9 +29,9 @@ char	define_direct(t_data *data, double x, double y)
 	}
 	else
 	{
-		if (map[next_up][pos_x] && map[next_down][pos_x])
+		if (map[(int)next_up][(int)x] && map[(int)next_down][(int)x])
 			direct = 'e';
-		else if (map[pos_y][next_left] == 0)
+		else if (map[(int)y][(int)next_left] == 0)
 			direct = 'e';
 		else
 		{
@@ -74,8 +70,8 @@ void	cast_ray(t_data *data, double angle, int i)
 	}
 	data->walls[i] = ray_len * cos(fabs(data->angle - angle) * M_PI / 180.0);
 	data->direct[i] = define_direct(data, x, y);
-	data->block_xpos[i] = x / data->x_ratio;
-	data->block_ypos[i] = y / data->y_ratio;
+	data->block_xpos[i] = x;
+	data->block_ypos[i] = y;
 	data->len[i] = ray_len;
 	data->x_pos[i] = x;
 	data->y_pos[i] = y;

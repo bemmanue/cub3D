@@ -3,10 +3,10 @@
 
 void	shift_position(int keycode, t_data *data)
 {
-	int		new_x;
-	int		new_y;
-	float	angle;
-	float 	distance;
+	double	new_x;
+	double	new_y;
+	double	angle;
+	double 	distance;
 
 	distance = 1.0;
 	if (keycode == ARROW_UP)

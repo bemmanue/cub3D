@@ -47,35 +47,30 @@ float	find_width(t_data *data, int x, int y, int h)
 {
 	double	width;
 	double	wall;
-	float	ratio;
-	double		p;
 
-	p = (double)y / (double)data->y_ratio;
-	wall = p + (double)(data->walls[x]) * ((data->posy - data->y_pos[x]));
+	wall = data->posy +
+		(data->walls[x]) * (fabs(data->posy - data->block_ypos[x]));
 	wall -= floor(wall);
-	width = wall * data->texture->width;
-//	printf("%f\n", width);
-//	width = 64.0 - width - 1.0;
+	width = wall * (double) data->texture->width;
 	return (width);
 }
 
 unsigned int	*define_color(t_data *data, int x, int y, int wall_height, int up)
 {
 	unsigned int	*color;
-	double			width;
-	int				pos_x;
-	int				pos_y;
+	double			new_x;
+	int				text_x;
+	int				text_y;
 	int				new_y;
 
-//	width = find_width(data, x, y, wall_height);
+	new_x = find_width(data, x, y, wall_height);
 	new_y = y - up;
-	pos_x = (2 / 64) * (double)data->texture->width;
-	pos_y = ((double)new_y / (double) wall_height) *
-			(double) data->texture->height;
-//	printf("y = %d\n", pos_y);
+	text_x = new_x - 1;
+	text_y = ((double)new_y / (double) wall_height) *
+			(double) data->texture->height - 1;
 	color = (unsigned int *) (data->texture->image->addr
-		  + (pos_y * data->texture->image->len +
-		  pos_x * (data->texture->image->bpp / 8)));
+			+ (text_y * data->texture->image->len +
+			text_x * (data->texture->image->bpp / 8)));
 	return (color);
 }
 
@@ -99,6 +94,10 @@ void	print_line(t_data *data, int x)
 		{
 			color = define_color(data, x, y, wall_height, up);
 			my_mlx_pixel_put(&data->image, x, y, *color);
+//			if (data->direct[x] == 's' || data->direct[x] == 'n')
+//				my_mlx_pixel_put(&data->image, x, y, 0x0000AAFF);
+//			else
+//				my_mlx_pixel_put(&data->image, x, y, 0x00FFAA00);
 		}
 		else
 			my_mlx_pixel_put(&data->image, x, y, 0x0055AA88);
