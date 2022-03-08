@@ -9,10 +9,10 @@ char	define_direct(t_data *data, double x, double y)
 	double	next_left;
 	char	direct;
 
-	next_up = y - 0.01;
-	next_down = y + 0.01;
-	next_right = x + 0.01;
-	next_left = x - 0.01;
+	next_up = y - 1.0 / ((double)HEIGHT / (double)MAP_HEIGHT);
+	next_down = y + 1.0 / ((double)HEIGHT / (double)MAP_HEIGHT);
+	next_right = x +  1.0 / ((double)WIDTH / (double)MAP_WIDTH);
+	next_left = x - 1.0 / ((double)WIDTH / (double)MAP_WIDTH);
 	if (x < data->posx)
 	{
 		if (map[(int)next_up][(int)x] && map[(int)next_down][(int)x])
@@ -72,10 +72,6 @@ void	cast_ray(t_data *data, double angle, int i)
 	data->direct[i] = define_direct(data, x, y);
 	data->block_xpos[i] = x;
 	data->block_ypos[i] = y;
-	data->len[i] = ray_len;
-	data->x_pos[i] = x;
-	data->y_pos[i] = y;
-	data->ang[i] = angle;
 }
 
 void	calculate_rays(t_data *data)

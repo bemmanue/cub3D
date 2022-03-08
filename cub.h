@@ -7,8 +7,8 @@
 # include <stdio.h>
 # include <math.h>
 
-#define 	WIDTH		400
-#define		HEIGHT		400
+#define 	WIDTH		600
+#define		HEIGHT		500
 #define 	MAP_WIDTH	10
 #define		MAP_HEIGHT	10
 #define 	X_POSITION	3
@@ -47,6 +47,10 @@ typedef	struct	s_data
 {
 	t_param		mlx;
 	t_texture	*texture;
+	t_texture	*north;
+	t_texture	*south;
+	t_texture	*east;
+	t_texture	*west;
 	t_image		image;
 	double		angle;
 	double		posx;
@@ -55,10 +59,6 @@ typedef	struct	s_data
 	char		direct[WIDTH];
 	double		block_xpos[WIDTH];
 	double		block_ypos[WIDTH];
-	double		x_pos[WIDTH];
-	double		y_pos[WIDTH];
-	double		len[WIDTH];
-	double 		ang[WIDTH];
 	double		x_ratio;
 	double		y_ratio;
 }				t_data;

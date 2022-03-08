@@ -1,10 +1,10 @@
 
 #include "../cub.h"
 
-t_texture	*init_texture(t_data *data)
+t_texture	*init_texture(t_data *data, char *path)
 {
 	t_texture	*texture;
-	char		*relative_path = "./textures/grey.xpm";
+	char		*relative_path = path;
 
 	if (!fopen(relative_path, "r"))
 		return (NULL);
@@ -21,7 +21,11 @@ void	init_data(t_data *data)
 {
 	data->x_ratio = (float)WIDTH / (float)MAP_WIDTH;
 	data->y_ratio = (float)HEIGHT / (float)MAP_HEIGHT;
-	data->texture = init_texture(data);
+	data->texture = init_texture(data, "./textures/grey.xpm");
+//	data->north = init_texture(data, "");
+//	data->south = init_texture(data, "");
+//	data->east = init_texture(data, "");
+//	data->west = init_texture(data, "");
 	data->posx = 5.0;
 	data->posy = 5.0;
 	data->angle = 0.0;

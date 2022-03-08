@@ -6,11 +6,11 @@ int	is_textstart(int x, t_data *data)
 	double	i;
 	int		count;
 
-	i = 0.0;
+	i = 1.0;
 	count = 0;
 	if (data->direct[x] == 'n' || data->direct[x] == 's')
 	{
-		while (i < 64)
+		while (i <= 64)
 		{
 			if (data->block_xpos[x] <= (int)data->block_xpos[x] + (i / 64.0)
 			&& data->block_xpos[x] > (int)data->block_xpos[x])
@@ -20,7 +20,7 @@ int	is_textstart(int x, t_data *data)
 	}
 	else if (data->direct[x] == 'w' || data->direct[x] == 'e')
 	{
-		while (i < 64)
+		while (i <= 64)
 		{
 			if (data->block_ypos[x] <= (int)data->block_ypos[x] + (i / 64.0)
 			&& data->block_ypos[x] > (int)data->block_ypos[x])
@@ -28,6 +28,8 @@ int	is_textstart(int x, t_data *data)
 			i += 1.0;
 		}
 	}
+	if (data->direct[x] == 's' || data->direct[x] == 'w')
+		count = data->texture->width - count + 1;
 	return (count);
 }
 
@@ -59,7 +61,7 @@ void	print_line(t_data *data, int x)
 	double			down;
 	unsigned int	*color;
 
-	wall_height = ((double)HEIGHT / (data->walls[x] * 40.0)) * 40.0;
+	wall_height = ((double)HEIGHT / (data->walls[x]));
 	up = ((double)HEIGHT - wall_height) / 2.0;
 	down = ((double)HEIGHT + wall_height) / 2.0;
 	y = 0;
@@ -73,7 +75,7 @@ void	print_line(t_data *data, int x)
 			my_mlx_pixel_put(&data->image, x, y, *color);
 		}
 		else
-			my_mlx_pixel_put(&data->image, x, y, 0x0055AA88);
+			my_mlx_pixel_put(&data->image, x, y, 0x0088BB66);
 		y++;
 	}
 }
