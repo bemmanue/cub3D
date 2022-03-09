@@ -45,7 +45,7 @@ typedef struct	s_param
 	int		y_pos; // y-позиция ячейки на карте
 	int		angle; // 0/90/180/270
 	int		width; // ширина карты в ячейках
-	int		he ight; // высота карты в ячейках
+	int		height; // высота карты в ячейках
 }				t_param;
 
 typedef	struct	s_pos

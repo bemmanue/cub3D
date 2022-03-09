@@ -15,6 +15,8 @@ static t_param	*init_ret(void)
 	ret->angle = 0;
 	ret->width = 0;
 	ret->height = 0;
+	ret->ceiling_color = 0x10000000;
+	ret->floor_color = 0x10000000;
 	return (ret);
 }
 
@@ -22,7 +24,11 @@ _Noreturn void	err_msg(int flag)
 {
 	ft_putendl_fd("Error", 2);
 	if (!flag)
-		ft_putendl_fd("Missing or invalid .cub argument", 2);
+		ft_putendl_fd("Missing or invalid .cub file argument", 2);
+	if (flag == MEM_ERROR)
+		ft_putendl_fd("Memory allocation error", 2);
+	if (flag == COLORS_ERR)
+		ft_putendl_fd("Missing or invalid color format", 2);
 	exit(0);
 }
 

@@ -1,5 +1,31 @@
 #include <parser.h>
 
+static int	get_color(char *str, int index)
+{
+	int counter;
+	int color;
+
+	counter = 0;
+	color = 0;
+	while (counter < 3)
+	{
+		color = color << 2;
+		if (ft_atoi(&str[index]) > 255 || ft_atoi(&str[index]) < 0)
+			return (COLORS_ERR);
+		color += ft_atoi(&str[index]);
+		while (str[index] == ' ')
+			index++;
+		while (ft_isdigit(str[index]))
+			index++;
+		while (str[index] == ' ')
+			index++;
+		if (str[index] == ',')
+			index++;
+		counter++;
+	}
+	return (color);
+}
+
 static int	parse_news(char *str)
 {
 	int	index;
@@ -29,10 +55,11 @@ static int	parse_news(char *str)
 	return (0);
 }
 
-static int	parse_colors(char *str)
+static int	parse_colors(char *str, t_param *info)
 {
 	int	index;
 	int	counter;
+	int	color;
 
 	counter = 0;
 	if ((!ft_strnstr(str, "F ", 2) || !ft_strnstr(str, "C ", 2)))
@@ -42,36 +69,24 @@ static int	parse_colors(char *str)
 		index++;
 	if (!str[index])
 		return (COLORS_ERR);
-	while (str[index] && counter < 3)
-	{
-		if (ft_atoi(&str[index]) > 255 || ft_atoi(&str[index]) < 0)
-			return (COLORS_ERR);
-		while (ft_isdigit(str[index]))
-			index++;
-		if (str[index] == ',')
-			index++;
-		counter++;
-	}
-	if (str[0] == 'C')
-		return (CEILING);
-	else
+	color = get_color(str, index);
+
+	if (str[0] == 'C' && info->ceiling_color == 0x10000000)
+		info->
+	else if ((str[0] == 'F' && info->floor_color == 0x10000000)
 		return (FLOOR);
+	return (0);
 }
 
-static int	parse_map(char *str)
-{
-	(void)str;
-}
-
-int	check_str(char *str)
+int	check_str(char *str, t_param *info)
 {
 	if (!str)
-		return (10);
+		err_msg(MEM_ERROR);
 	if (ft_strchr("NEWS", str[0]))
 		return (parse_news(str));
 	if (ft_strchr("FC", str[0]))
-		return (parse_colors(str));
+		return (parse_colors(str, info));
 	if (ft_strchr("01 ", str[0]))
-		return (parse_map(str));
+		return (MAP);
 	return (EMPTY);
 }
