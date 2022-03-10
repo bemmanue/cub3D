@@ -21,7 +21,7 @@ static int	get_color(char *str, int index)
 	color = 0;
 	while (counter < 3 && str[index])
 	{
-		color = color << 2;
+		color = color << 8;
 		if (ft_atoi(&str[index]) > 255 || ft_atoi(&str[index]) < 0)
 			return (COLORS_ERR);
 		color += ft_atoi(&str[index]);
@@ -35,21 +35,20 @@ static int	get_color(char *str, int index)
 			index++;
 		counter++;
 	}
-	if (counter < 3)
+	if (counter < 3 || str[index])
 		err_msg(COLORS_ERR);
 	return (color);
 }
+
 
 static int	parse_news(char *str, t_param *info)
 {
 	int	index;
 	int	fd;
 
-	printf("%s\n", str);
-	if ((!ft_strnstr(str, "NO", 3) || !ft_strnstr(str, "EA", 3))
-		|| !ft_strnstr(str, "WE", 3) ||!ft_strnstr(str, "SO", 3))
+	if ((!ft_strnstr(str, "NO ", 3) && !ft_strnstr(str, "EA ", 3))
+		&& !ft_strnstr(str, "WE ", 3) && !ft_strnstr(str, "SO ", 3))
 		err_msg(NEWS_ERROR);
-	printf("%s\n", str);
 	index = 3;
 	while (str[index] == ' ' && str[index])
 		index++;
@@ -76,7 +75,7 @@ static int	parse_colors(char *str, t_param *info)
 	int	index;
 	int	color;
 
-	if ((!ft_strnstr(str, "F ", 2) || !ft_strnstr(str, "C ", 2)))
+	if ((!ft_strnstr(str, "F ", 2) && !ft_strnstr(str, "C ", 2)))
 		err_msg(COLORS_ERR);
 	index = 2;
 	while (str[index] == ' ' && str[index])
@@ -102,13 +101,13 @@ int	check_str(char *str, t_param *info)
 {
 	if (!str)
 		err_msg(MEM_ERROR);
-	if (ft_strchr("NEWS", str[0]))
+	if (ft_strlen(str) == 0)
+		return (EMPTY);
+	else if (ft_strchr("NEWS", str[0]))
 		return (parse_news(str, info));
 	else if (ft_strchr("FC", str[0]))
 		return (parse_colors(str, info));
 	else if (ft_strchr("01 ", str[0]))
 		return (MAP);
-	else if (ft_strlen(str) > 0)
-		err_msg(0);
 	return (EMPTY);
 }

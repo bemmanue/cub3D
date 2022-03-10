@@ -77,6 +77,7 @@ void	get_info(t_param *info, char *cub)
 	{
 		printf("%s\n", line);
 		check = check_str(line, info);
+		printf("%d\n", check);
 		if (check == MAP)
 			/*flags.map = map()*/;
 		else
