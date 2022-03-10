@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dwillard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/10 13:17:57 by dwillard          #+#    #+#             */
+/*   Updated: 2022/03/10 13:17:58 by dwillard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <parser.h>
 
 static t_param	*init_ret(void)
@@ -7,16 +19,14 @@ static t_param	*init_ret(void)
 	ret = malloc(sizeof (t_param));
 	if (!ret)
 		return (NULL);
-	ret->map = ft_calloc(1000, sizeof (char *));
+	ret->map = ft_calloc(100, sizeof (char *));
 	if (!ret->map)
 		return (NULL);
 	ret->x_pos = 0;
 	ret->y_pos = 0;
 	ret->angle = 0;
-	ret->width = 0;
-	ret->height = 0;
-	ret->ceiling_color = 0x10000000;
-	ret->floor_color = 0x10000000;
+	ret->ceiln = 0x10000000;
+	ret->floor = 0x10000000;
 	return (ret);
 }
 
@@ -24,11 +34,19 @@ _Noreturn void	err_msg(int flag)
 {
 	ft_putendl_fd("Error", 2);
 	if (!flag)
-		ft_putendl_fd("Missing or invalid .cub file argument", 2);
+		ft_putendl_fd("Missing or corrupted .cub file argument", 2);
 	if (flag == MEM_ERROR)
 		ft_putendl_fd("Memory allocation error", 2);
 	if (flag == COLORS_ERR)
 		ft_putendl_fd("Missing or invalid color format", 2);
+	if (flag == NEWS_ERROR)
+		ft_putendl_fd("Missing or invalid texture path format", 2);
+	if (flag == NEWS_OP_ER)
+		ft_putendl_fd("Missing or corrupted texture file", 2);
+	if (flag == DUP_TEX)
+		ft_putendl_fd("Duplicate texture path", 2);
+	if (flag == DUP_COL)
+		ft_putendl_fd("Duplicate color definition", 2);
 	exit(0);
 }
 

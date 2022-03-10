@@ -1,15 +1,11 @@
 
 NAME		=	cub
 
-SRC_DIR		=	sources/
-SRCS		=	main.c		\
-				calculate.c	\
-				draw.c		\
-				hook.c		\
-				init.c
-
+SRC_DIR		=	sources/parser/
+SRCS		=	$(SRC_DIR)main.c parser.c parse_utils.c get_info.c\
+				$(GNL)/get_next_line.c
 VPATH		=	$(SRC_DIR)
-INCLUDES	=	includes
+INCLUDES	=	./includes/
 
 OBJ_DIR		:=	build_files
 OBJS 		=	$(patsubst %,$(OBJ_DIR)/%,$(SRCS:.c=.o))

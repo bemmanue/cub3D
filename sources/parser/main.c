@@ -6,7 +6,8 @@ int	main(int argc, char **argv)
 	t_param	*check;
 
 	check = parser(argc, argv);
-	printf("NO:%s\nSO:%s\nEA:%s\nWE:%s\n", check->north_texture,
-		   check->south_texture, check->east_texture, check->west_texture);
+	printf("NO:%s\nSO:%s\nEA:%s\nWE:%s\n", check->n_tex,
+		   check->s_tex, check->e_tex, check->w_tex);
+	printf("C:%d\nF:%D\n", check->ceiln, check->floor);
 	return (0);
 }
