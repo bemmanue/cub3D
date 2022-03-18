@@ -14,12 +14,13 @@
 #define 	X_POSITION	3
 #define		Y_POSITION	7
 #define		RANGE		66
-# define 	ARROW_RIGHT 124
-# define 	ARROW_LEFT 	123
-# define 	ARROW_UP	126
-# define 	ARROW_DOWN	125
+# define 	ARROW_RIGHT 2
+# define 	ARROW_LEFT 	0
+# define 	ARROW_UP	13
+# define 	ARROW_DOWN	1
 # define 	KEY_RIGHT	47
 # define 	KEY_LEFT	43
+#define		ESCAPE		53
 
 typedef struct	s_image
 {

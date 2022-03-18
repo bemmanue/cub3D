@@ -35,5 +35,7 @@ int		key_hook(int keycode, t_data *data)
 		data->angle += 3.0;
 	else if (keycode == KEY_LEFT)
 		data->angle -= 3.0;
+	else if (keycode == ESCAPE)
+		exit (0);
 	return (0);
 }
