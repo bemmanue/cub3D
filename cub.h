@@ -7,20 +7,18 @@
 # include <stdio.h>
 # include <math.h>
 
-#define 	WIDTH		600
-#define		HEIGHT		500
-#define 	MAP_WIDTH	10
-#define		MAP_HEIGHT	10
-#define 	X_POSITION	3
-#define		Y_POSITION	7
-#define		RANGE		66
-# define 	ARROW_RIGHT 2
-# define 	ARROW_LEFT 	0
-# define 	ARROW_UP	13
-# define 	ARROW_DOWN	1
-# define 	KEY_RIGHT	47
-# define 	KEY_LEFT	43
-#define		ESCAPE		53
+#define 	SCREEN_WIDTH	600
+#define		SCREEN_HEIGHT	500
+#define 	MAP_WIDTH		10
+#define		MAP_HEIGHT		10
+#define		RANGE			66
+# define 	ARROW_RIGHT 	2
+# define 	ARROW_LEFT 		0
+# define 	ARROW_UP		13
+# define 	ARROW_DOWN		1
+# define 	KEY_RIGHT		47
+# define 	KEY_LEFT		43
+#define		ESCAPE			53
 
 typedef struct	s_image
 {
@@ -31,12 +29,6 @@ typedef struct	s_image
 	int			end;
 }				t_image;
 
-typedef struct	s_param
-{
-	void		*mlx;
-	void		*mlx_win;
-}				t_param;
-
 typedef	struct	s_texture
 {
 	int			width;
@@ -46,22 +38,24 @@ typedef	struct	s_texture
 
 typedef	struct	s_data
 {
-	t_param		mlx;
-	t_texture	*texture;
-	t_texture	*north;
-	t_texture	*south;
-	t_texture	*east;
-	t_texture	*west;
-	t_image		image;
-	double		angle;
-	double		posx;
-	double 		posy;
-	double		walls[WIDTH];
-	char		direct[WIDTH];
-	double		block_xpos[WIDTH];
-	double		block_ypos[WIDTH];
-	double		x_ratio;
-	double		y_ratio;
+	void			*mlx;
+	void			*mlx_win;
+	t_texture		*north;
+	t_texture		*south;
+	t_texture		*east;
+	t_texture		*west;
+	unsigned int	floor;
+	unsigned int	ceiling;
+	t_image			image;
+	double			angle;
+	double			posx;
+	double 			posy;
+	double			ray_len[SCREEN_WIDTH];
+	char			direct[SCREEN_WIDTH];
+	double			block_xpos[SCREEN_WIDTH];
+	double			block_ypos[SCREEN_WIDTH];
+	double			x_ratio;
+	double			y_ratio;
 }				t_data;
 
 static int ang;
@@ -83,7 +77,7 @@ void	init_data(t_data *data);
 
 void	calculate_rays(t_data *data);
 void	cast_ray(t_data *data, double angle, int i);
-int		is_wall(t_data *data, double x, double y);
+int		is_wall(double x, double y);
 
 void	draw_map(t_data *data);
 void	draw_walls(t_data *data);

@@ -19,7 +19,7 @@ void	shift_position(int keycode, t_data *data)
 		angle = 90.0;
 	new_x = data->posx + (distance * (sin((data->angle + angle) * M_PI / 180.0)));
 	new_y = data->posy - (distance * (cos((data->angle + angle) * M_PI / 180.0)));
-	if (!is_wall(data, new_x, new_y))
+	if (!is_wall(new_x, new_y))
 	{
 		data->posx = new_x;
 		data->posy = new_y;
