@@ -1,34 +1,45 @@
 
 #include "../cub.h"
 
-t_texture	*init_texture(t_data *data, char *relative_path)
+void	init_texture(t_data *data, t_texture *texture)
 {
-	t_texture	*texture;
-
-	texture = malloc(sizeof(t_texture));
-	if (!texture)
-		return (NULL);
 	texture->image = malloc(sizeof(t_image));
 	if (!texture->image)
-		return (NULL);
+		exit_error("Memory error\n");
 	texture->image->img = mlx_xpm_file_to_image
-		(data->mlx, relative_path, &texture->width, &texture->height);
-	texture->image->addr = mlx_get_data_addr
-		(texture->image->img, &texture->image->bpp, &texture->image->len, &texture->image->end);
-	return (texture);
+		(data->mlx, texture->path, &texture->width, &texture->height);
+	if (!texture->image->img)
+		exit_error("Memory error\n");
+	texture->image->addr = mlx_get_data_addr(texture->image->img,
+		 &texture->image->bpp, &texture->image->len, &texture->image->end);
+}
+
+void	init_minimap(t_data *data)
+{
+	t_minimap *minimap;
+
+	minimap = &data->minimap;
+	if (data->map_width >= data->map_height)
+	{
+		minimap->x_len = (double)SCREEN_WIDTH / 7.0;
+		minimap->y_len = minimap->x_len * (data->map_height / data->map_width);
+	}
+	else
+	{
+		minimap->y_len = (double)SCREEN_HEIGHT / 7.0;
+		minimap->x_len = minimap->y_len * (data->map_width / data->map_height);
+	}
+	minimap->x_ratio = minimap->x_len / data->map_width;
+	minimap->y_ratio = minimap->y_len / data->map_height;
+	minimap->x_shift = 10;
+	minimap->y_shift = SCREEN_HEIGHT - minimap->y_len - 10;
 }
 
 void	init_data(t_data *data)
 {
-	data->x_ratio = (double)SCREEN_WIDTH / (double)MAP_WIDTH;
-	data->y_ratio = (double)SCREEN_HEIGHT / (double)MAP_HEIGHT;
-	data->north = init_texture(data, "./textures/blue.xpm");
-	data->south = init_texture(data, "./textures/brick.xpm");
-	data->east = init_texture(data, "./textures/wood.xpm");
-	data->west = init_texture(data, "./textures/grey.xpm");
-	data->floor = 0x0088BB66;
-	data->ceiling = 0x0099CCDD;
-	data->posx = 5.0;
-	data->posy = 5.0;
-	data->angle = 0.0;
+	init_texture(data, &data->north);
+	init_texture(data, &data->south);
+	init_texture(data, &data->east);
+	init_texture(data, &data->west);
+	init_minimap(data);
 }

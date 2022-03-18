@@ -7,67 +7,86 @@
 # include <stdio.h>
 # include <math.h>
 
-#define 	SCREEN_WIDTH	600
-#define		SCREEN_HEIGHT	500
-#define 	MAP_WIDTH		10
-#define		MAP_HEIGHT		10
-#define		RANGE			66
-# define 	ARROW_RIGHT 	2
-# define 	ARROW_LEFT 		0
-# define 	ARROW_UP		13
-# define 	ARROW_DOWN		1
-# define 	KEY_RIGHT		47
-# define 	KEY_LEFT		43
-#define		ESCAPE			53
+#define 	SCREEN_WIDTH	800
+#define		SCREEN_HEIGHT	600
+
+#define		VIEW_RANGE		66
+
+# define 	KEY_D 			2
+# define 	KEY_A	 		0
+# define 	KEY_W			13
+# define 	KEY_S			1
+# define 	ARROW_RIGHT		47
+# define 	ARROW_LEFT		43
+# define	ESCAPE			53
 
 typedef struct	s_image
 {
-	void		*img;
-	char		*addr;
-	int			bpp;
-	int			len;
-	int			end;
-}				t_image;
+	void			*img;
+	char			*addr;
+	int				bpp;
+	int				len;
+	int				end;
+}					t_image;
 
 typedef	struct	s_texture
 {
-	int			width;
-	int			height;
-	t_image		*image;
-}				t_texture;
+	char			*path;
+	int				width;
+	int				height;
+	t_image			*image;
+}					t_texture;
+
+typedef struct		s_ray
+{
+	double			ray_len;
+	char			wall_direct;
+	double			wall_xpos;
+	double			wall_ypos;
+}					t_ray;
+
+typedef	struct		s_minimap
+{
+	double			x_len;
+	double			y_len;
+	double			x_ratio;
+	double 			y_ratio;
+	int				x_shift;
+	int				y_shift;
+}					t_minimap;
 
 typedef	struct	s_data
 {
 	void			*mlx;
 	void			*mlx_win;
-	t_texture		*north;
-	t_texture		*south;
-	t_texture		*east;
-	t_texture		*west;
+	t_image			image;
+	t_texture		north;
+	t_texture		south;
+	t_texture		east;
+	t_texture		west;
+	t_minimap		minimap;
 	unsigned int	floor;
 	unsigned int	ceiling;
-	t_image			image;
+	double			map_width;
+	double			map_height;
 	double			angle;
-	double			posx;
-	double 			posy;
-	double			ray_len[SCREEN_WIDTH];
-	char			direct[SCREEN_WIDTH];
-	double			block_xpos[SCREEN_WIDTH];
-	double			block_ypos[SCREEN_WIDTH];
+	double			xpos;
+	double 			ypos;
+	t_ray			ray[SCREEN_WIDTH];
 	double			x_ratio;
 	double			y_ratio;
-}				t_data;
+}					t_data;
 
 static int ang;
 
 static int	map[10][10] =
 		{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		 {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-		 {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+		 {1, 0, 1, 0, 0, 0, 1, 0, 0, 1},
 		 {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		 {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+		 {1, 1, 0, 0, 1, 0, 0, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
@@ -77,12 +96,18 @@ void	init_data(t_data *data);
 
 void	calculate_rays(t_data *data);
 void	cast_ray(t_data *data, double angle, int i);
-int		is_wall(double x, double y);
+int		is_wall(t_data *data, double x, double y);
 
-void	draw_map(t_data *data);
+void	draw_minimap(t_data *data);
 void	draw_walls(t_data *data);
 char	is_walls(int x, int y, t_data *data);
 
+int		close_hook(void);
 int		key_hook(int keycode, t_data *data);
+int		key_release(int keycode, t_data *data);
+
+void	exit_error(char *message);
+
+t_data	*parser_data(char *path);
 
 #endif

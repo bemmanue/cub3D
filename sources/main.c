@@ -13,26 +13,35 @@ void	draw_image(t_data *data)
 {
 	calculate_rays(data);
 	draw_walls(data);
+	draw_minimap(data);
 }
 
 int	render_next_frame(t_data *data)
 {
 	data->image.img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	data->image.addr = mlx_get_data_addr(data->image.img, &data->image.bpp, &data->image.len, &data->image.end);
+	data->image.addr = mlx_get_data_addr(data->image.img,
+		 &data->image.bpp,&data->image.len, &data->image.end);
 	draw_image(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->image.img, 0, 0);
 	return (0);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
-	t_data	data;
+	t_data	*data;
 
-	data.mlx = mlx_init();
-	init_data(&data);
-	data.mlx_win = mlx_new_window(data.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
-	mlx_hook(data.mlx_win, 2, 0, key_hook, &data);
-	mlx_loop_hook(data.mlx, render_next_frame, &data);
-	mlx_loop(data.mlx);
+	if (argc != 2)
+	{
+		ft_putstr_fd("Wrong arguments\n", 1);
+		return (0);
+	}
+	data = parser_data(argv[1]);
+	data->mlx = mlx_init();
+	init_data(data);
+	data->mlx_win = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
+	mlx_hook(data->mlx_win, 2, 0, key_hook, data);
+	mlx_hook(data->mlx_win, 17, 0, close_hook, NULL);
+	mlx_loop_hook(data->mlx, render_next_frame, data);
+	mlx_loop(data->mlx);
 	return (0);
 }
