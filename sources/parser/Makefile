@@ -4,7 +4,7 @@ OBJDIR			:=	obj_dir
 OBJS			=	$(patsubst %,$(OBJDIR)/%,$(SRC:.c=.o))
 
 VPATH			=	source/parser
-SRC				=	main.c parser.c parse_utils.c get_info.c\
+SRC				=	main.c parser.c parse_utils.c get_info.c map.c\
 					$(GNL)/get_next_line.c
 
 LIBFT			=	../../libft
@@ -14,10 +14,12 @@ GNL				=	get_next_line
 $(OBJDIR)/%.o:  %.c
 				cc -I../../includes -I$(GNL) -c $< -o $@
 
+all:			lib $(NAME)
+
 lib:
 				make -sC $(LIBFT) all
 
-all:			lib $(OBJS)
+$(NAME):		$(OBJS)
 				cc $(OBJS) -L$(LIBFT) -lft -o parser
 
 $(OBJS):		| $(OBJDIR)
@@ -31,3 +33,5 @@ clean:
 		rm -rf */*.o
 		rm -rf $(OBJDIR)
 		rm -rf parser
+
+.PHONY:	all lib clean

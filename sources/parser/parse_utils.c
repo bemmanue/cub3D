@@ -23,7 +23,7 @@ static int	get_color(char *str, int index)
 	{
 		color = color << 8;
 		if (ft_atoi(&str[index]) > 255 || ft_atoi(&str[index]) < 0)
-			return (COLORS_ERR);
+			return (colors_err);
 		color += ft_atoi(&str[index]);
 		while (str[index] == ' ')
 			index++;
@@ -36,10 +36,9 @@ static int	get_color(char *str, int index)
 		counter++;
 	}
 	if (counter < 3 || str[index])
-		err_msg(COLORS_ERR);
+		err_msg(colors_err);
 	return (color);
 }
-
 
 static int	parse_news(char *str, t_param *info)
 {
@@ -48,24 +47,24 @@ static int	parse_news(char *str, t_param *info)
 
 	if ((!ft_strnstr(str, "NO ", 3) && !ft_strnstr(str, "EA ", 3))
 		&& !ft_strnstr(str, "WE ", 3) && !ft_strnstr(str, "SO ", 3))
-		err_msg(NEWS_ERROR);
+		err_msg(news_error);
 	index = 3;
 	while (str[index] == ' ' && str[index])
 		index++;
 	if (str[index])
 		fd = open(&str[index], O_WRONLY);
 	else
-		err_msg(NEWS_ERROR);
+		err_msg(news_error);
 	if (fd < 0)
-		err_msg(NEWS_OP_ER);
+		err_msg(news_op_error);
 	close(fd);
-	if (str[0] == NORTH)
+	if (str[0] == north)
 		info->n_tex = ft_strdup(&str[index]);
-	else if (str[0] == EAST)
+	else if (str[0] == east)
 		info->e_tex = ft_strdup(&str[index]);
-	else if (str[0] == SOUTH)
+	else if (str[0] == south)
 		info->s_tex = ft_strdup(&str[index]);
-	else if (str[0] == WEST)
+	else if (str[0] == west)
 		info->w_tex = ft_strdup(&str[index]);
 	return ((int)str[0]);
 }
@@ -76,38 +75,45 @@ static int	parse_colors(char *str, t_param *info)
 	int	color;
 
 	if ((!ft_strnstr(str, "F ", 2) && !ft_strnstr(str, "C ", 2)))
-		err_msg(COLORS_ERR);
+		err_msg(colors_err);
 	index = 2;
 	while (str[index] == ' ' && str[index])
 		index++;
 	if (!str[index])
-		err_msg(COLORS_ERR);
+		err_msg(colors_err);
 	color = get_color(str, index);
 	if (str[0] == 'C' && info->ceiln == 0x10000000)
 	{
 		info->ceiln = color;
-		return (CEILING);
+		return (ceiling);
 	}
 	else if (str[0] == 'F' && info->floor == 0x10000000)
 	{
 		info->floor = color;
-		return (FLOOR);
+		return (floor);
 	}
 	else
-		err_msg(COLORS_ERR);
+		err_msg(colors_err);
 }
+
+//static void	check_more(char *str)
+//{
+//
+//}
 
 int	check_str(char *str, t_param *info)
 {
 	if (!str)
-		err_msg(MEM_ERROR);
+		err_msg(mem_error);
 	if (ft_strlen(str) == 0)
-		return (EMPTY);
+		return (empty);
 	else if (ft_strchr("NEWS", str[0]))
 		return (parse_news(str, info));
 	else if (ft_strchr("FC", str[0]))
 		return (parse_colors(str, info));
 	else if (ft_strchr("01 ", str[0]))
-		return (MAP);
-	return (EMPTY);
+		return (map_error);
+//	else
+//		check_more(str);
+	return (empty);
 }
