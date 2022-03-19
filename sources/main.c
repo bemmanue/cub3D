@@ -11,7 +11,7 @@ void	my_mlx_pixel_put(t_image *image, int x, int y, unsigned int color)
 
 void	draw_image(t_data *data)
 {
-	calculate_rays(data);
+	cast_rays(data);
 	draw_walls(data);
 	draw_minimap(data);
 }

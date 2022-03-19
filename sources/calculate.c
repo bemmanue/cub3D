@@ -43,7 +43,7 @@ char	define_direct(t_data *data, double x, double y)
 	return (direct);
 }
 
-void	cast_ray(t_data *data, double angle, int ray)
+void	init_ray(t_data *data, double angle, t_ray *ray)
 {
 	double	ray_len;
 	double	ray_x;
@@ -58,20 +58,19 @@ void	cast_ray(t_data *data, double angle, int ray)
 		ray_y = data->ypos - (ray_len * (cos(angle * M_PI / 180.0)));
 		ray_len += 0.01;
 	}
-	data->ray[ray].ray_len = ray_len
-		* cos(fabs(data->angle - angle) * M_PI / 180.0);
-	data->ray[ray].wall_direct = define_direct(data, ray_x, ray_y);
-	data->ray[ray].wall_xpos = ray_x;
-	data->ray[ray].wall_ypos = ray_y;
+	ray->ray_len = ray_len * cos(fabs(data->angle - angle) * M_PI / 180.0);
+	ray->wall_direct = define_direct(data, ray_x, ray_y);
+	ray->wall_xpos = ray_x;
+	ray->wall_ypos = ray_y;
 	if (SCREEN_HEIGHT < SCREEN_WIDTH)
-		data->ray[ray].wall_height = ((double)SCREEN_HEIGHT / (data->ray[ray].ray_len));
+		ray->wall_height = ((double)SCREEN_HEIGHT / ray->ray_len);
 	else
-		data->ray[ray].wall_height = ((double)SCREEN_WIDTH / (data->ray[ray].ray_len));
-	data->ray[ray].wall_top = ((double)SCREEN_HEIGHT - data->ray[ray].wall_height) / 2.0;
-	data->ray[ray].wall_bottom = ((double)SCREEN_HEIGHT + data->ray[ray].wall_height) / 2.0;
+		ray->wall_height = ((double)SCREEN_WIDTH / ray->ray_len);
+	ray->wall_top = ((double)SCREEN_HEIGHT - ray->wall_height) / 2.0;
+	ray->wall_bottom = ((double)SCREEN_HEIGHT + ray->wall_height) / 2.0;
 }
 
-void	calculate_rays(t_data *data)
+void	cast_rays(t_data *data)
 {
 	double	angle;
 	double	ratio;
@@ -82,7 +81,7 @@ void	calculate_rays(t_data *data)
 	ray = 0;
 	while (ray < SCREEN_WIDTH)
 	{
-		cast_ray(data, angle, ray);
+		init_ray(data, angle, &data->ray[ray]);
 		angle += ratio;
 		ray++;
 	}

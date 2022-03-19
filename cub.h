@@ -96,8 +96,8 @@ static int	map[7][10] =
 void	my_mlx_pixel_put(t_image *image, int x, int y, unsigned int color);
 void	init_data(t_data *data);
 
-void	calculate_rays(t_data *data);
-void	cast_ray(t_data *data, double angle, int i);
+void	cast_rays(t_data *data);
+void	init_ray(t_data *data, double angle, t_ray *ray);
 int		is_wall(t_data *data, double x, double y);
 
 void	draw_minimap(t_data *data);
