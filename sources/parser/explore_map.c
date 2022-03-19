@@ -2,8 +2,13 @@
 
 static char	**go_through(int size, char **src, int x, int y)
 {
+	t_map	*start;
+
 	if (!x || x == ft_strlen(src[y]) || !y || y == size)
 		err_msg(pos_error);
+	start = new_nod(NULL, NULL, src[y], x);
+	start->up = new_nod(NULL, start, src[y - 1], 0);
+	start->down = new_nod(start, NULL, src[y + 1], 0);
 }
 
 void	explore_map(t_param *info)
