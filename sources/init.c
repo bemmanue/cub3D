@@ -37,9 +37,9 @@ void	init_minimap(t_data *data)
 
 void	init_data(t_data *data)
 {
-	init_texture(data, &data->north);
-	init_texture(data, &data->south);
-	init_texture(data, &data->east);
-	init_texture(data, &data->west);
+	init_texture(data, &data->texture[0]);
+	init_texture(data, &data->texture[1]);
+	init_texture(data, &data->texture[2]);
+	init_texture(data, &data->texture[3]);
 	init_minimap(data);
 }

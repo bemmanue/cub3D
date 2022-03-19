@@ -11,9 +11,9 @@ int	is_wall(t_data *data, double x, double y)
 char	specify_direct(t_data *data, double x, double y, char d)
 {
 	if (y < data->ypos && (y - (int)y) > 0.99)
-		return ('n');
+		return (0);
 	else if (y > data->ypos && (y - (int)y) < 0.01)
-		return ('s');
+		return (1);
 	else
 		return (d);
 }
@@ -29,16 +29,16 @@ char	define_direct(t_data *data, double x, double y)
 	if (x < data->xpos)
 	{
 		if (map[(int)next_up][(int)x] && map[(int)next_down][(int)x])
-			direct = 'w';
+			direct = 3;
 		else
-			direct = specify_direct(data, x, y, 'w');
+			direct = specify_direct(data, x, y, 3);
 	}
 	else
 	{
 		if (map[(int)next_up][(int)x] && map[(int)next_down][(int)x])
-			direct = 'e';
+			direct = 2;
 		else
-			direct = specify_direct(data, x, y, 'e');
+			direct = specify_direct(data, x, y, 2);
 	}
 	return (direct);
 }
@@ -63,6 +63,12 @@ void	cast_ray(t_data *data, double angle, int ray)
 	data->ray[ray].wall_direct = define_direct(data, ray_x, ray_y);
 	data->ray[ray].wall_xpos = ray_x;
 	data->ray[ray].wall_ypos = ray_y;
+	if (SCREEN_HEIGHT < SCREEN_WIDTH)
+		data->ray[ray].wall_height = ((double)SCREEN_HEIGHT / (data->ray[ray].ray_len));
+	else
+		data->ray[ray].wall_height = ((double)SCREEN_WIDTH / (data->ray[ray].ray_len));
+	data->ray[ray].wall_top = ((double)SCREEN_HEIGHT - data->ray[ray].wall_height) / 2.0;
+	data->ray[ray].wall_bottom = ((double)SCREEN_HEIGHT + data->ray[ray].wall_height) / 2.0;
 }
 
 void	calculate_rays(t_data *data)

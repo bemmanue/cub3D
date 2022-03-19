@@ -39,10 +39,14 @@ typedef	struct	s_texture
 
 typedef struct		s_ray
 {
+	double			angle;
 	double			ray_len;
 	char			wall_direct;
 	double			wall_xpos;
 	double			wall_ypos;
+	double			wall_height;
+	double			wall_top;
+	double			wall_bottom;
 }					t_ray;
 
 typedef	struct		s_minimap
@@ -60,10 +64,11 @@ typedef	struct	s_data
 	void			*mlx;
 	void			*mlx_win;
 	t_image			image;
-	t_texture		north;
-	t_texture		south;
-	t_texture		east;
-	t_texture		west;
+//	t_texture		north;
+//	t_texture		south;
+//	t_texture		east;
+//	t_texture		west;
+	t_texture		texture[4];
 	t_minimap		minimap;
 	unsigned int	floor;
 	unsigned int	ceiling;
@@ -79,16 +84,13 @@ typedef	struct	s_data
 
 static int ang;
 
-static int	map[10][10] =
+static int	map[7][10] =
 		{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		 {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
 		 {1, 0, 1, 0, 0, 0, 1, 0, 0, 1},
 		 {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		 {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
-		 {1, 1, 0, 0, 1, 0, 0, 0, 0, 1},
-		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
 void	my_mlx_pixel_put(t_image *image, int x, int y, unsigned int color);
