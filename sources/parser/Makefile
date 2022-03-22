@@ -4,7 +4,8 @@ OBJDIR			:=	obj_dir
 OBJS			=	$(patsubst %,$(OBJDIR)/%,$(SRC:.c=.o))
 
 VPATH			=	source/parser
-SRC				=	main.c parser.c parse_utils.c get_info.c map.c\
+SRC				=	main.c parser.c parse_utils.c get_info.c	\
+ 					map.c map_utils.c explore_map.c	new_nod.c	\
 					$(GNL)/get_next_line.c
 
 LIBFT			=	../../libft

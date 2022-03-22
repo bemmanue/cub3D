@@ -67,12 +67,12 @@ static void	get_map(t_param *info, int fd, char *line, t_flag *flags)
 			info->x_pos = get;
 			info->y_pos = index;
 		}
-		info->map[index++] = line;
+		info->map[index++] = ft_strdup(line);
 		free(line);
 		line = NULL;
+		detec = get_next_line(fd, &line);
 		if (!detec)
 			break ;
-		detec = get_next_line(fd, &line);
 		if (index % 25 == 0)
 			duplicate(info);
 	}

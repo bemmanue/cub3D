@@ -66,6 +66,9 @@ typedef struct s_map
 {
 	int				begin;
 	int				**interval;
+	int				count;
+	int				len;
+	char			*str;
 	struct s_map	*up;
 	struct s_map	*down;
 }				t_map;
@@ -89,6 +92,8 @@ t_param			*parser(int argc, char **argv);
 
 t_map			*new_nod(t_map *up, t_map *down, char *str, int begin);
 
+void			init_nods(int size, t_map *start, int y, char **src);
+
 void			get_info(t_param *info, char *cub);
 
 void			map(t_param *info, int fd, char *line, t_flag *flags);
@@ -96,6 +101,8 @@ void			map(t_param *info, int fd, char *line, t_flag *flags);
 void			explore_map(t_param *info);
 
 int				check_str(char *str, t_param *info);
+
+int				modi(int i);
 
 _Noreturn void	err_msg(int flag);
 
