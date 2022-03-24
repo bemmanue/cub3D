@@ -1,5 +1,7 @@
 NAME			=	parser
 
+FLAGS			=	-Wall -Wextra -Werror
+
 OBJDIR			:=	obj_dir
 OBJS			=	$(patsubst %,$(OBJDIR)/%,$(SRC:.c=.o))
 
@@ -13,7 +15,7 @@ LIBFT			=	../../libft
 GNL				=	get_next_line
 
 $(OBJDIR)/%.o:  %.c
-				cc -I../../includes -I$(GNL) -c $< -o $@
+				cc $(FLAGS) -I../../includes -I$(GNL) -c $< -o $@
 
 all:			lib $(NAME)
 

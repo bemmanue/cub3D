@@ -19,7 +19,7 @@ static int	help_scan(int ptr, int flag, t_map *ref)
 			if (flag != flag_down)
 				err_msg(content_err);
 			ptr = right;
-			continue;
+			continue ;
 		}
 		index++;
 	}
@@ -32,9 +32,11 @@ static void	scan(int ptr, int stop, int flag, t_map *ref)
 
 	if (ptr == stop)
 		return ;
+	if ((!ref->up || !ref->down) && !flag)
+		err_msg(content_err);
 	while (ptr < stop)
 	{
-		temp = help_scan(ptr, flag, ref);
+		temp = help_scan(ptr, flag, ref->down);
 		if (temp != ptr)
 		{
 			ptr = temp;
@@ -57,10 +59,11 @@ static void	checker(t_map *line)
 		if (line->interval[index][1] < 0)
 			flag = 1;
 		stop = modi(line->interval[index][1]);
-		if (stop > line->down->len || (line->up && stop > line->up->len))
+		if ((line->down && stop > line->down->len)
+			|| (line->up && stop > line->up->len))
 			err_msg(content_err);
 		if (stop)
-			scan(line->interval[index][0], stop, flag, line->down);
+			scan(line->interval[index][0], stop, flag, line);
 		index++;
 	}
 }
@@ -68,22 +71,25 @@ static void	checker(t_map *line)
 static char	**go_through(int size, char **src, int x, int y)
 {
 	t_map	*start;
+	t_map	*temp;
 	char	**ret;
 
-	if (!x || x == ft_strlen(src[y]) || !y || y == size)
+	if (!x || x == (int)ft_strlen(src[y]) || !y || y == size)
 		err_msg(pos_error);
 	start = new_nod(NULL, NULL, src[y]);
 	init_nods(size, start, y, src);
 	check(start);
 	while (start->up)
 		start = start->up;
-	while (start->down)
+	temp = start;
+	while (start)
 	{
 		check_chips(start);
 		checker(start);
 		start = start->down;
 	}
-	ret = real_array(start);
+	ret = real_array(temp);
+	destroy_map(temp);
 	return (ret);
 }
 
@@ -101,4 +107,5 @@ void	explore_map(t_param *info)
 		size++;
 	}
 	info->inmap = go_through(size, temp, (int)info->x_pos, (int)info->y_pos);
+	get_params(info);
 }

@@ -90,6 +90,7 @@ static int	angel(char pos)
 		return (180);
 	else if (pos == east)
 		return (270);
+	return (0);
 }
 
 void	map(t_param *info, int fd, char *line, t_flag *flags)

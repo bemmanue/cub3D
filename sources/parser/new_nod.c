@@ -61,7 +61,6 @@ static void	cycle(t_map *map, int index, int start, char *str)
 		err_msg(mem_error);
 	while (index > 0 && start + index1 < index)
 	{
-		//вдруг эта строка не закрыта, тогда она должна быть ошибочной
 		if (str[start + index1] == ' ' || !str[index])
 			index *= -1;
 		index1++;
@@ -80,7 +79,6 @@ static void	x_dim(char *str, t_map *map)
 
 	index = 0;
 	start = 0;
-//	check_borders(str);
 	map->count = count(str, &index);
 	map->interval = ft_calloc((map->count + 1), sizeof (int *));
 	if (!map->interval)

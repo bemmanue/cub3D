@@ -15,7 +15,7 @@ void	check(t_map *start)
 		while (i < start->count)
 		{
 			char *str = strndup(&start->str[start->interval[i][0]],
-				modi(start->interval[i][1]) - start->interval[i][0]);
+								modi(start->interval[i][1]) - start->interval[i][0]);
 			printf("beg index %d\n", start->interval[i][0]);
 			printf("end index %d\n", start->interval[i][1]);
 			printf("str chip '%s'\n", str);
@@ -30,33 +30,45 @@ void	check(t_map *start)
 	}
 }
 
-char **real_array(t_map *start)
+static char	**getarr(int counter, t_map *start, int len)
 {
-	int		len;
-	int		counter;
 	int		index;
 	char	**ret;
 
-	counter = 0;
 	index = 0;
-	len = start->len;
-	while (start->up)
-	{
-		start = start->up;
-		counter++;
-		if (len < start->len)
-			len = start->len;
-	}
 	ret = ft_calloc(counter + 1, sizeof (char *));
 	if (!ret)
 		err_msg(mem_error);
 	while (index < counter)
 	{
 		ret[index] = ft_strndup(start->str, len);
+		if (!ret[index])
+			err_msg(mem_error);
 		index++;
 		start = start->down;
 	}
 	return (ret);
+}
+
+char	**real_array(t_map *start)
+{
+	int		len;
+	int		counter;
+
+	t_map	*temp;
+
+	counter = 0;
+
+	len = start->len;
+	temp = start;
+	while (temp)
+	{
+		counter++;
+		if (len < temp->len)
+			len = temp->len;
+		temp = temp->down;
+	}
+	return (getarr(counter, start, len));
 }
 
 void	check_chips(t_map *line)
@@ -86,10 +98,44 @@ void	check_chips(t_map *line)
 	}
 }
 
+void	destroy_map(t_map *start)
+{
+	t_map	*temp;
+	int		index;
+
+	while (start)
+	{
+		temp = start;
+		start = start->down;
+		index = 0;
+		while (temp->interval[index])
+			free(temp->interval[index++]);
+		free(temp->interval);
+		free(temp->str);
+		free(temp);
+	}
+}
+
+void	get_params(t_param *info)
+{
+	int	len;
+	int	counter;
+
+	counter = 0;
+	len = (int)ft_strlen(info->inmap[counter]);
+	while (info->inmap[counter])
+	{
+		if (len < (int)ft_strlen(info->inmap[counter]))
+			len = (int)ft_strlen(info->inmap[counter]);
+		counter++;
+	}
+	info->width = len;
+	info->height = counter;
+}
+
 int	modi(int i)
 {
 	if (i < 0)
 		i *= -1;
 	return (i);
 }
-

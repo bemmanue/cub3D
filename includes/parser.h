@@ -63,7 +63,6 @@ typedef struct s_map
 	int				**interval;
 	int				count;
 	int				len;
-	int				flag;
 	char			*str;
 	struct s_map	*up;
 	struct s_map	*down;
@@ -79,6 +78,8 @@ typedef struct s_param
 	char	**map;
 	int		floor;
 	int		ceiln;
+	int		height;
+	int		width;
 	double	x_pos;
 	double	y_pos;
 	double	angle;
@@ -100,9 +101,13 @@ void			init_nods(int size, t_map *start, int y, char **src);
 
 void			get_info(t_param *info, char *cub);
 
+void			get_params(t_param *info);
+
 void			map(t_param *info, int fd, char *line, t_flag *flags);
 
 void			explore_map(t_param *info);
+
+void			destroy_map(t_map *start);
 
 _Noreturn void	err_msg(int flag);
 

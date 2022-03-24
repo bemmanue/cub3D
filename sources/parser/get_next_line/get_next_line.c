@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* ***************pp*********************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
@@ -74,20 +74,20 @@ int	get_next_line(int fd, char **line)
 {
 	static char		*tail[1024];
 	char			*buf;
-	size_t			bytes;
+	int				bytes;
 
 	if (condition_zero(line, fd, &buf))
 		return (-1);
 	if (check_tail(line, &tail[fd], &buf))
 		return (1);
-	bytes = read(fd, buf, BUFFER_SIZE);
+	bytes = (int)read(fd, buf, BUFFER_SIZE);
 	while (bytes > 0)
 	{
 		buf[bytes] = '\0';
 		if (ft_strchr(buf, '\n') != NULL)
 			return (buffer_works(line, &tail[fd], buf));
 		(void) buffer_works(line, NULL, buf);
-		bytes = read(fd, buf, BUFFER_SIZE);
+		bytes = (int)read(fd, buf, BUFFER_SIZE);
 	}
 	free(buf);
 	if (bytes < 0)
