@@ -1,5 +1,5 @@
 
-#include "../cub.h"
+#include "cub.h"
 
 void	exit_error(char *message)
 {

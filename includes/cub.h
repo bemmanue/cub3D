@@ -2,8 +2,9 @@
 #ifndef CUB_H
 # define CUB_H
 
-# include <mlx.h>
-# include "libft/libft.h"
+# include "../mlx/mlx.h"
+# include "../libft/libft.h"
+//# include <parser.h>
 # include <stdio.h>
 # include <math.h>
 
@@ -64,10 +65,6 @@ typedef	struct	s_data
 	void			*mlx;
 	void			*mlx_win;
 	t_image			image;
-//	t_texture		north;
-//	t_texture		south;
-//	t_texture		east;
-//	t_texture		west;
 	t_texture		texture[4];
 	t_minimap		minimap;
 	unsigned int	floor;

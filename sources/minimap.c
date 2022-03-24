@@ -1,4 +1,4 @@
-#include "../cub.h"
+#include "cub.h"
 
 void	draw_minimap(t_data *data)
 {

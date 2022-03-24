@@ -1,5 +1,5 @@
 
-#include "../cub.h"
+#include "cub.h"
 
 void	init_texture(t_data *data, t_texture *texture)
 {

@@ -1,5 +1,5 @@
 
-#include "../cub.h"
+#include "cub.h"
 
 void	shift_position(int keycode, t_data *data)
 {

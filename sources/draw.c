@@ -1,5 +1,5 @@
 
-#include "../cub.h"
+#include "cub.h"
 
 int	texture_x_position(t_texture *texture, t_ray ray)
 {

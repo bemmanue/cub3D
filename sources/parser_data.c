@@ -1,5 +1,5 @@
 
-#include "../cub.h"
+#include "cub.h"
 
 t_data	*parser_data(char *path)
 {
