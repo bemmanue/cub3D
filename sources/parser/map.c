@@ -70,14 +70,26 @@ static void	get_map(t_param *info, int fd, char *line, t_flag *flags)
 		info->map[index++] = ft_strdup(line);
 		free(line);
 		line = NULL;
-		detec = get_next_line(fd, &line);
 		if (!detec)
 			break ;
+		detec = get_next_line(fd, &line);
 		if (index % 25 == 0)
 			duplicate(info);
 	}
 	if (detec < 0)
 		err_msg(get_error);
+}
+
+static int	angel(char pos)
+{
+	if (pos == north)
+		return (0);
+	else if (pos == west)
+		return (90);
+	else if (pos == south)
+		return (180);
+	else if (pos == east)
+		return (270);
 }
 
 void	map(t_param *info, int fd, char *line, t_flag *flags)
@@ -89,5 +101,7 @@ void	map(t_param *info, int fd, char *line, t_flag *flags)
 	get_map(info, fd, line, flags);
 	if (!flags->flag.pos)
 		err_msg(pos_error);
+	if (flags->flag.pos)
+		info->angle = angel(info->map[(int)info->y_pos][(int)info->x_pos]);
 	explore_map(info);
 }

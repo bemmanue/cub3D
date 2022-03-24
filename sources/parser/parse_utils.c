@@ -96,11 +96,6 @@ static int	parse_colors(char *str, t_param *info)
 		err_msg(colors_err);
 }
 
-//static void	check_more(char *str)
-//{
-//
-//}
-
 int	check_str(char *str, t_param *info)
 {
 	if (!str)
@@ -113,7 +108,5 @@ int	check_str(char *str, t_param *info)
 		return (parse_colors(str, info));
 	else if (ft_strchr("01 ", str[0]))
 		return (map_error);
-//	else
-//		check_more(str);
 	return (empty);
 }

@@ -1,12 +1,33 @@
 #include <parser.h>
 
+void	init_nods(int size, t_map *start, int y, char **src)
+{
+	t_map	*move;
+	int		index;
+
+	move = start;
+	index = y;
+	while (index > 0)
+	{
+		move->up = new_nod(NULL, move, src[--index]);
+		move = move->up;
+	}
+	move = start;
+	index = y + 1;
+	while (index < size)
+	{
+		move->down = new_nod(move, NULL, src[index++]);
+		move = move->down;
+	}
+}
+
 static int	count(char *str, int *index)
 {
 	int	ind;
 	int	counter;
 
 	counter = 1;
-	while (str[*index] != '1')
+	while (str[*index] != '1' && str[*index])
 	{
 		if (str[*index] != ' ')
 			err_msg(content_err);
@@ -47,8 +68,6 @@ static void	cycle(t_map *map, int index, int start, char *str)
 	}
 	map->interval[counter][0] = start;
 	map->interval[counter][1] = index;
-	if (index > 0 && map->len == index - start)
-		map->begin = -1;
 	counter++;
 	if (counter >= map->count)
 		counter = 0;
@@ -61,6 +80,7 @@ static void	x_dim(char *str, t_map *map)
 
 	index = 0;
 	start = 0;
+//	check_borders(str);
 	map->count = count(str, &index);
 	map->interval = ft_calloc((map->count + 1), sizeof (int *));
 	if (!map->interval)
@@ -78,7 +98,7 @@ static void	x_dim(char *str, t_map *map)
 		cycle(map, index, start, str);
 }
 
-t_map	*new_nod(t_map *up, t_map *down, char *str, int begin)
+t_map	*new_nod(t_map *up, t_map *down, char *str)
 {
 	t_map	*ret;
 
@@ -94,10 +114,6 @@ t_map	*new_nod(t_map *up, t_map *down, char *str, int begin)
 	ret->len = ft_strlen(str);
 	ret->up = up;
 	ret->down = down;
-	if (begin)
-		ret->begin = begin;
-	else
-		ret->begin = 0;
 	x_dim(str, ret);
 	return (ret);
 }

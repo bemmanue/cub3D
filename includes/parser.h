@@ -58,13 +58,8 @@ typedef union u_flag
 	struct s_byte	flag;
 }				t_flag;
 
-/*
- * if str has starting location then begin stores it's value otherwise begin = 0
- * if str contains only 1s then begin = -1
- */
 typedef struct s_map
 {
-	int				begin;
 	int				**interval;
 	int				count;
 	int				len;
@@ -90,7 +85,9 @@ typedef struct s_param
 
 t_param			*parser(int argc, char **argv);
 
-t_map			*new_nod(t_map *up, t_map *down, char *str, int begin);
+t_map			*new_nod(t_map *up, t_map *down, char *str);
+
+void			check_chips(t_map *line);
 
 void			init_nods(int size, t_map *start, int y, char **src);
 
@@ -105,5 +102,7 @@ int				check_str(char *str, t_param *info);
 int				modi(int i);
 
 _Noreturn void	err_msg(int flag);
+
+void			check(t_map *start);
 
 #endif
