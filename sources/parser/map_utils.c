@@ -30,6 +30,35 @@ void	check(t_map *start)
 	}
 }
 
+char **real_array(t_map *start)
+{
+	int		len;
+	int		counter;
+	int		index;
+	char	**ret;
+
+	counter = 0;
+	index = 0;
+	len = start->len;
+	while (start->up)
+	{
+		start = start->up;
+		counter++;
+		if (len < start->len)
+			len = start->len;
+	}
+	ret = ft_calloc(counter + 1, sizeof (char *));
+	if (!ret)
+		err_msg(mem_error);
+	while (index < counter)
+	{
+		ret[index] = ft_strndup(start->str, len);
+		index++;
+		start = start->down;
+	}
+	return (ret);
+}
+
 void	check_chips(t_map *line)
 {
 	int		left;
@@ -56,28 +85,6 @@ void	check_chips(t_map *line)
 		index++;
 	}
 }
-//
-//void	check_borders(char *str)
-//{
-//	int	index;
-//	int	count;
-//
-//	count = (int)ft_strlen(str);
-//	index = 0;
-//	while (str[index] != '1' && index < count)
-//	{
-//		if (str[index] != ' ')
-//			err_msg(content_err);
-//		index++;
-//	}
-//	index = count - 1;
-//	while (str[index] != '1' && index > 0)
-//	{
-//		if (str[index] != ' ')
-//			err_msg(content_err);
-//		index--;
-//	}
-//}
 
 int	modi(int i)
 {
