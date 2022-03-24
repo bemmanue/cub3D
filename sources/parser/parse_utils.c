@@ -110,3 +110,10 @@ int	check_str(char *str, t_param *info)
 		return (map_error);
 	return (empty);
 }
+
+int	modi(int i)
+{
+	if (i < 0)
+		i *= -1;
+	return (i);
+}
