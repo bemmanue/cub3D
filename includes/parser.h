@@ -66,24 +66,42 @@ typedef struct s_map
 	char			*str;
 	struct s_map	*up;
 	struct s_map	*down;
-}				t_map;
+}					t_map;
+
+typedef struct	s_image
+{
+	void			*img;
+	char			*addr;
+	int				bpp;
+	int				len;
+	int				end;
+}					t_image;
+
+typedef	struct	s_texture
+{
+	char			*path;
+	int				width;
+	int				height;
+	t_image			*image;
+}					t_texture;
 
 typedef struct s_data
 {
-	char		*n_tex;
-	char		*s_tex;
-	char		*w_tex;
-	char		*e_tex;
-	char		**inmap;
-	char		**map;
-	int			floor;
-	int			ceiling;
-	int			height;
-	int			width;
-	double		xpos;
-	double		ypos;
-	double		angle;
-}				t_data;
+//	char			*n_tex;
+	char			*s_tex;
+	char			*w_tex;
+	char			*e_tex;
+	t_texture		north;
+	char			**inmap;
+	char			**map;
+	int				floor;
+	int				ceiling;
+	int				height;
+	int				width;
+	double			xpos;
+	double			ypos;
+	double			angle;
+}					t_data;
 
 t_data			*parser(int argc, char **argv);
 t_map			*new_nod(t_map *up, t_map *down, char *str);

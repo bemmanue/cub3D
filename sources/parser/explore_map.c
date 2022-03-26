@@ -85,6 +85,7 @@ static char	**go_through(int size, char **src, int x, int y)
 	while (start)
 	{
 		check_chips(start);
+		printf("start:\t%s\n", start->str);
 		checker(start);
 		start = start->down;
 	}

@@ -59,7 +59,7 @@ static int	parse_news(char *str, t_data *info)
 		err_msg(news_op_error);
 	close(fd);
 	if (str[0] == north)
-		info->n_tex = ft_strdup(&str[index]);
+		info->north.path = ft_strdup(&str[index]);
 	else if (str[0] == east)
 		info->e_tex = ft_strdup(&str[index]);
 	else if (str[0] == south)

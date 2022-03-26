@@ -45,7 +45,7 @@ static unsigned int	check_coltex(char *path, unsigned int bit, int flag)
 static void	check_action(t_data *info, int check, t_flag *flags)
 {
 	if (check == north)
-		flags->flag.n = check_coltex(info->n_tex, flags->flag.n, 0);
+		flags->flag.n = check_coltex(info->north.path, flags->flag.n, 0);
 	else if (check == south)
 		flags->flag.s = check_coltex(info->s_tex, flags->flag.s, 0);
 	else if (check == east)
