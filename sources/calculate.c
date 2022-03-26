@@ -3,7 +3,7 @@
 
 int	is_wall(t_data *data, double x, double y)
 {
-	if (map[(int)y][(int)x] == 1)
+	if (mmap[(int)y][(int)x] == 1)
 		return (1);
 	return (0);
 }
@@ -28,14 +28,14 @@ char	define_direct(t_data *data, double x, double y)
 	next_down = y + (1.0 / data->y_ratio);
 	if (x < data->xpos)
 	{
-		if (map[(int)next_up][(int)x] && map[(int)next_down][(int)x])
+		if (mmap[(int)next_up][(int)x] && mmap[(int)next_down][(int)x])
 			direct = 3;
 		else
 			direct = specify_direct(data, x, y, 3);
 	}
 	else
 	{
-		if (map[(int)next_up][(int)x] && map[(int)next_down][(int)x])
+		if (mmap[(int)next_up][(int)x] && mmap[(int)next_down][(int)x])
 			direct = 2;
 		else
 			direct = specify_direct(data, x, y, 2);
