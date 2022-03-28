@@ -8,6 +8,7 @@ static int	help_scan(int ptr, int flag, t_map *ref)
 	int	flag_down;
 
 	index = 0;
+	flag_down = 0;
 	while (index < ref->count)
 	{
 		left = ref->interval[index][0];
@@ -107,6 +108,7 @@ void	explore_map(t_data *info)
 			err_msg(map_error);
 		size++;
 	}
-	info->inmap = go_through(size, temp, (int)info->xpos, (int)info->ypos);
+	info->map = go_through(size, temp, (int)info->x_pos, (int)info->y_pos);
+	free_arr(&temp);
 	get_params(info);
 }

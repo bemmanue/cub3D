@@ -25,7 +25,7 @@ static void	case_error(const char *path, unsigned int bit, int flag)
 		err_msg(dup_col);
 }
 
-static unsigned int	check_coltex(char *path, unsigned int bit, int flag)
+static unsigned int	coltex(char *path, unsigned int bit, int flag)
 {
 	if (!flag)
 	{
@@ -45,17 +45,17 @@ static unsigned int	check_coltex(char *path, unsigned int bit, int flag)
 static void	check_action(t_data *info, int check, t_flag *flags)
 {
 	if (check == north)
-		flags->flag.n = check_coltex(info->north.path, flags->flag.n, 0);
+		flags->flag.n = coltex(info->north.path, flags->flag.n, 0);
 	else if (check == south)
-		flags->flag.s = check_coltex(info->s_tex, flags->flag.s, 0);
+		flags->flag.s = coltex(info->south.path, flags->flag.s, 0);
 	else if (check == east)
-		flags->flag.e = check_coltex(info->e_tex, flags->flag.e, 0);
+		flags->flag.e = coltex(info->west.path, flags->flag.e, 0);
 	else if (check == west)
-		flags->flag.w = check_coltex(info->w_tex, flags->flag.w, 0);
-	else if (check == floor)
-		flags->flag.f = check_coltex(NULL, flags->flag.f, 1);
+		flags->flag.w = coltex(info->east.path, flags->flag.w, 0);
+	else if (check == floor_clr)
+		flags->flag.f = coltex(NULL, flags->flag.f, 1);
 	else if (check == ceiling)
-		flags->flag.c = check_coltex(NULL, flags->flag.c, 1);
+		flags->flag.c = coltex(NULL, flags->flag.c, 1);
 	else
 		return ;
 }

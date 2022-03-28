@@ -64,8 +64,8 @@ static void	get_map(t_data *info, int fd, char *line, t_flag *flags)
 		get = check_line(line, flags);
 		if (get)
 		{
-			info->xpos = get;
-			info->ypos = index;
+			info->x_pos = get;
+			info->y_pos = index;
 		}
 		info->map[index++] = ft_strdup(line);
 		free(line);
@@ -103,6 +103,6 @@ void	map(t_data *info, int fd, char *line, t_flag *flags)
 	if (!flags->flag.pos)
 		err_msg(pos_error);
 	if (flags->flag.pos)
-		info->angle = angel(info->map[(int)info->ypos][(int)info->xpos]);
+		info->angle = angel(info->map[(int)info->y_pos][(int)info->x_pos]);
 	explore_map(info);
 }

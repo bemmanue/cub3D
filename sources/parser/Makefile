@@ -1,6 +1,6 @@
 NAME			=	parser
 
-FLAGS			=	-Wall -Wextra -Werror
+FLAGS			=	-Wall -Wextra -Werror -g
 
 OBJDIR			:=	obj_dir
 OBJS			=	$(patsubst %,$(OBJDIR)/%,$(SRC:.c=.o))

@@ -26,7 +26,7 @@ char	define_direct(t_data *data, double x, double y)
 
 	next_up = y - (1.0 / data->y_ratio);
 	next_down = y + (1.0 / data->y_ratio);
-	if (x < data->xpos)
+	if (x < data->x_pos)
 	{
 		if (data->map[(int)next_up][(int)x] && data->map[(int)next_down][(int)x])
 			direct = 'w';
@@ -49,13 +49,13 @@ void	init_ray(t_data *data, double angle, t_ray *ray)
 	double	ray_x;
 	double	ray_y;
 
-	ray_x = data->xpos;
-	ray_y = data->ypos;
+	ray_x = data->x_pos;
+	ray_y = data->y_pos;
 	ray_len = 0.0;
 	while (!is_wall(data, ray_x, ray_y))
 	{
-		ray_x = data->xpos + (ray_len * (sin(angle * M_PI / 180.0)));
-		ray_y = data->ypos - (ray_len * (cos(angle * M_PI / 180.0)));
+		ray_x = data->x_pos + (ray_len * (sin(angle * M_PI / 180.0)));
+		ray_y = data->y_pos - (ray_len * (cos(angle * M_PI / 180.0)));
 		ray_len += 0.01;
 	}
 	ray->ray_len = ray_len * cos(fabs(data->angle - angle) * M_PI / 180.0);

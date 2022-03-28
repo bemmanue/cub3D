@@ -4,7 +4,6 @@ NAME		=	cub
 SRCS		=	sources/main.c				\
 				sources/calculate.c			\
 				sources/draw.c				\
-				sources/parser_data.c		\
 				sources/hook.c				\
 				sources/init.c				\
 				libft/ft_putstr_fd.c		\

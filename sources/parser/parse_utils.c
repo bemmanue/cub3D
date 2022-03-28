@@ -61,11 +61,11 @@ static int	parse_news(char *str, t_data *info)
 	if (str[0] == north)
 		info->north.path = ft_strdup(&str[index]);
 	else if (str[0] == east)
-		info->e_tex = ft_strdup(&str[index]);
+		info->west.path = ft_strdup(&str[index]);
 	else if (str[0] == south)
-		info->s_tex = ft_strdup(&str[index]);
+		info->south.path = ft_strdup(&str[index]);
 	else if (str[0] == west)
-		info->w_tex = ft_strdup(&str[index]);
+		info->east.path = ft_strdup(&str[index]);
 	return ((int)str[0]);
 }
 
@@ -90,7 +90,7 @@ static int	parse_colors(char *str, t_data *info)
 	else if (str[0] == 'F' && info->floor == 0x10000000)
 	{
 		info->floor = color;
-		return (floor);
+		return (floor_clr);
 	}
 	else
 		err_msg(colors_err);
