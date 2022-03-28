@@ -1,16 +1,7 @@
 
 NAME		=	cub
 
-SRCS		=	sources/parser/main.c		\
-				sources/parser/map_utils.c	\
-				sources/parser/parser.c		\
-				sources/parser/parse_utils.c\
-				sources/parser/get_info.c	\
-				sources/parser/get_next_line/get_next_line.c\
-				sources/parser/map.c		\
-				sources/parser/explore_map.c\
-				sources/parser/new_nod.c	\
-				sources/main.c				\
+SRCS		=	sources/main.c				\
 				sources/calculate.c			\
 				sources/draw.c				\
 				sources/parser_data.c		\

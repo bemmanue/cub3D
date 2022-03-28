@@ -8,7 +8,7 @@ int	texture_x_position(t_texture *texture, t_ray ray)
 
 	i = 1.0;
 	position = 0;
-	if (ray.wall_direct == 0 || ray.wall_direct == 1)
+	if (ray.wall_direct == 'n' || ray.wall_direct == 's')
 	{
 		while (i <= texture->height)
 		{
@@ -17,7 +17,7 @@ int	texture_x_position(t_texture *texture, t_ray ray)
 			i += 1.0;
 		}
 	}
-	else if (ray.wall_direct == 3 || ray.wall_direct == 2)
+	else if (ray.wall_direct == 'e' || ray.wall_direct == 'w')
 	{
 		while (i <= texture->width)
 		{
@@ -26,7 +26,7 @@ int	texture_x_position(t_texture *texture, t_ray ray)
 			i += 1.0;
 		}
 	}
-	if (ray.wall_direct == 1 || ray.wall_direct == 3)
+	if (ray.wall_direct == 'e' || ray.wall_direct == 'w')
 		position = texture->width - position + 1;
 	return (position);
 }
@@ -47,7 +47,14 @@ unsigned int	define_color(t_data *data, int x, int y)
 	int				text_y;
 	unsigned int	color;
 
-	texture = &data->texture[data->ray[x].wall_direct];
+	if (data->ray[x].wall_direct == 'n')
+		texture = &data->north;
+	else if (data->ray[x].wall_direct == 'e')
+		texture = &data->east;
+	else if (data->ray[x].wall_direct == 's')
+		texture = &data->south;
+	else
+		texture = &data->west;
 	text_x = texture_x_position(texture, data->ray[x]) - 1;
 	text_y = texture_y_position(texture, data->ray[x], y);
 	color = *(unsigned int *)(texture->image->addr +

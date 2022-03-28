@@ -8,7 +8,7 @@ void	shift_position(int keycode, t_data *data)
 	double	angle;
 	double 	distance;
 
-	distance = 0.2;
+	distance = 0.3;
 	if (keycode == KEY_W)
 		angle = 0.0;
 	else if (keycode == KEY_S)
@@ -32,9 +32,9 @@ int	key_hook(int keycode, t_data *data)
 		|| keycode == KEY_S || keycode == KEY_W)
 		shift_position(keycode, data);
 	else if (keycode == ARROW_RIGHT)
-		data->angle += 4.0;
+		data->angle += 6.0;
 	else if (keycode == ARROW_LEFT)
-		data->angle -= 4.0;
+		data->angle -= 6.0;
 	else if (keycode == ESCAPE)
 		exit (0);
 	return (0);

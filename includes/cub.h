@@ -17,17 +17,6 @@
 # define 	ARROW_LEFT		43
 # define	ESCAPE			53
 
-static int ang;
-
-static int	mmap[7][10] =
-		{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		 {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-		 {1, 0, 1, 0, 0, 0, 1, 0, 0, 1},
-		 {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-		 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		 {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
-		 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
-
 void	my_mlx_pixel_put(t_image *image, int x, int y, unsigned int color);
 void	init_data(t_data *data);
 
