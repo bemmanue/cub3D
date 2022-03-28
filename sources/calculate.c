@@ -10,6 +10,7 @@ int	is_wall(t_data *data, double x, double y)
 
 char	specify_direct(t_data *data, double x, double y, char d)
 {
+	(void)x;
 	if (y < data->y_pos && (y - (int)y) > 0.99)
 		return ('n');
 	else if (y > data->y_pos && (y - (int)y) < 0.01)

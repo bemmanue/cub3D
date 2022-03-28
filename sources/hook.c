@@ -9,6 +9,7 @@ void	shift_position(int keycode, t_data *data)
 	double 	distance;
 
 	distance = 0.3;
+	angle = 0.0;
 	if (keycode == KEY_W)
 		angle = 0.0;
 	else if (keycode == KEY_S)
