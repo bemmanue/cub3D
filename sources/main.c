@@ -26,16 +26,34 @@ int	render_next_frame(t_data *data)
 	return (0);
 }
 
+t_data	*parser_data(char *path)
+{
+	t_data	*data;
+
+	data = malloc(sizeof(t_data));
+	if (!data)
+		exit_error("Memory error\n");
+	data->north.path = ft_strdup("./textures/grey.xpm");
+	data->east.path = ft_strdup("./textures/blue.xpm");
+	data->south.path = ft_strdup("./textures/grey.xpm");
+	data->west.path = ft_strdup("./textures/blue.xpm");
+	data->map_width = 10.0;
+	data->map_height = 7.0;
+	data->floor = 0x0088BB66;
+	data->ceiling = 0x0099CCDD;
+	data->x_pos = 5.0;
+	data->y_pos = 5.0;
+	data->angle = 0.0;
+	data->x_ratio = (double)SCREEN_WIDTH / data->map_width;
+	data->y_ratio = (double)SCREEN_HEIGHT / data->map_height;
+	return (data);
+}
+
 int main(int argc, char **argv)
 {
 	t_data	*data;
 
-	if (argc != 2)
-	{
-		ft_putstr_fd("Wrong arguments\n", 1);
-		return (0);
-	}
-	data = parser_data(argv[1]);
+	data = parser(argc, argv);
 	data->mlx = mlx_init();
 	init_data(data);
 	data->mlx_win = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");

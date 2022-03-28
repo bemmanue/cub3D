@@ -3,16 +3,16 @@
 
 int	is_wall(t_data *data, double x, double y)
 {
-	if (data->map[(int)y][(int)x] == 1)
+	if (data->map[(char)y][(char)x] == 1)
 		return (1);
 	return (0);
 }
 
 char	specify_direct(t_data *data, double x, double y, char d)
 {
-	if (y < data->ypos && (y - (int)y) > 0.99)
+	if (y < data->y_pos && (y - (int)y) > 0.99)
 		return ('n');
-	else if (y > data->ypos && (y - (int)y) < 0.01)
+	else if (y > data->y_pos && (y - (int)y) < 0.01)
 		return ('s');
 	else
 		return (d);
