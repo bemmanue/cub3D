@@ -19,12 +19,11 @@ static t_data	*init_ret(void)
 	ret = malloc(sizeof (t_data));
 	if (!ret)
 		return (NULL);
-	ret->map = malloc(sizeof (char *) * 25);
+	ret->map = ft_calloc(25, sizeof (char *));
 	if (!ret->map)
 		err_msg(mem_error);
-	ret->inmap = NULL;
-	ret->xpos = 0;
-	ret->ypos = 0;
+	ret->x_pos = 0;
+	ret->y_pos = 0;
 	ret->angle = 0;
 	ret->ceiling = 0x10000000;
 	ret->floor = 0x10000000;

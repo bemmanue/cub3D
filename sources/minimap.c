@@ -21,10 +21,10 @@ void	draw_minimap(t_data *data)
 				my_mlx_pixel_put(&data->image, x_pixel, y_pixel, 0x00000000);
 			else
 				my_mlx_pixel_put(&data->image, x_pixel, y_pixel, 0x00CCCCCC);
-			if (x / minimap->x_ratio < data->xpos + minimap->x_ratio / 50.0
-				&& x / minimap->x_ratio > data->xpos - minimap->x_ratio / 50.0
-				&& y / minimap->y_ratio < data->ypos + minimap->y_ratio / 50.0
-				&& y / minimap->y_ratio > data->ypos - minimap->y_ratio / 50.0)
+			if (x / minimap->x_ratio < data->x_pos + minimap->x_ratio / 50.0
+				&& x / minimap->x_ratio > data->x_pos - minimap->x_ratio / 50.0
+				&& y / minimap->y_ratio < data->y_pos + minimap->y_ratio / 50.0
+				&& y / minimap->y_ratio > data->y_pos - minimap->y_ratio / 50.0)
 				my_mlx_pixel_put(&data->image, x_pixel, y_pixel, 0x00FF0000);
 			x++;
 		}

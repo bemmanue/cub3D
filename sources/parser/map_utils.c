@@ -120,13 +120,13 @@ void	get_params(t_data *info)
 	int	counter;
 
 	counter = 0;
-	len = (int)ft_strlen(info->inmap[counter]);
-	while (info->inmap[counter])
+	len = (int)ft_strlen(info->map[counter]);
+	while (info->map[counter])
 	{
-		if (len < (int)ft_strlen(info->inmap[counter]))
-			len = (int)ft_strlen(info->inmap[counter]);
+		if (len < (int)ft_strlen(info->map[counter]))
+			len = (int)ft_strlen(info->map[counter]);
 		counter++;
 	}
-	info->width = len;
-	info->height = counter;
+	info->map_width = len;
+	info->map_height = counter;
 }

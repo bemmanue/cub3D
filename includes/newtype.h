@@ -59,15 +59,18 @@ typedef	struct	s_data
 	void			*mlx;
 	void			*mlx_win;
 	t_image			image;
-	t_texture		texture[4];
+	t_texture		north;
+	t_texture		east;
+	t_texture		south;
+	t_texture		west;
 	t_minimap		minimap;
 	unsigned int	floor;
 	unsigned int	ceiling;
 	double			map_width;
 	double			map_height;
 	double			angle;
-	double			xpos;
-	double 			ypos;
+	double			x_pos;
+	double 			y_pos;
 	t_ray			ray[SCREEN_WIDTH];
 	double			x_ratio;
 	double			y_ratio;
@@ -79,7 +82,7 @@ enum e_const
 	map_error,
 	pos_error,
 	ceiling,
-	floor_cnst,
+	floor_clr,
 	news_error,
 	news_op_error,
 	colors_err,
@@ -121,21 +124,5 @@ typedef struct s_map
 	struct s_map	*up;
 	struct s_map	*down;
 }				t_map;
-
-typedef struct s_param
-{
-	char	*n_tex;
-	char	*s_tex;
-	char	*w_tex;
-	char	*e_tex;
-	char	**map;
-	int		floor;
-	int		ceiling;
-	int		height;
-	int		width;
-	double	x_pos;
-	double	y_pos;
-	double	angle;
-}				t_param;
 
 #endif

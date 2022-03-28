@@ -17,12 +17,12 @@ void	shift_position(int keycode, t_data *data)
 		angle = -90.0;
 	else if (keycode == KEY_D)
 		angle = 90.0;
-	new_x = data->xpos + (distance * (sin((data->angle + angle) * M_PI / 180.0)));
-	new_y = data->ypos - (distance * (cos((data->angle + angle) * M_PI / 180.0)));
+	new_x = data->x_pos + (distance * (sin((data->angle + angle) * M_PI / 180.0)));
+	new_y = data->y_pos - (distance * (cos((data->angle + angle) * M_PI / 180.0)));
 	if (!is_wall(data, new_x, new_y))
 	{
-		data->xpos = new_x;
-		data->ypos = new_y;
+		data->x_pos = new_x;
+		data->y_pos = new_y;
 	}
 }
 
