@@ -38,7 +38,7 @@ t_data	*parser_data(char *path)
 	data->south.path = ft_strdup("./textures/grey.xpm");
 	data->west.path = ft_strdup("./textures/blue.xpm");
 	data->map_width = 10.0;
-	data->map_height = 7.0;
+	data->map_height = 10.0;
 	data->floor = 0x0088BB66;
 	data->ceiling = 0x0099CCDD;
 	data->x_pos = 5.0;
