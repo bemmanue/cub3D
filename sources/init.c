@@ -29,7 +29,7 @@ void	init_texture(t_data *data, t_texture *texture)
 void	init_minimap(t_data *data)
 {
 	t_minimap	*minimap;
-	int 		max_map_size;
+	int			max_map_size;
 
 	minimap = &data->minimap;
 	max_map_size = MINIMAP_SIZE;

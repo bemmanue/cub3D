@@ -30,7 +30,6 @@ static double	calculate_x_pos(t_data *data)
 static double	calculate_y_pos(t_data *data)
 {
 	double	shift;
-	(void)data;
 
 	shift = 0.0;
 	if (data->y_pos > 5.0)
@@ -46,21 +45,24 @@ static double	calculate_y_pos(t_data *data)
 static void	draw_pos(t_data *data, double x_shift, double y_shift)
 {
 	t_minimap	*minimap;
-	int 		x_pixel;
-	int 		y_pixel;
-	int 		i;
+	int			x_pixel;
+	int			y_pixel;
+	int			i;
 	int			j;
 
 	minimap = &data->minimap;
-	x_pixel = (int)((data->x_pos - x_shift) * minimap->ratio + minimap->x_shift);
-	y_pixel = (int)((data->y_pos - y_shift) * minimap->ratio + minimap->y_shift);
+	x_pixel = (int)((data->x_pos - x_shift) * minimap->ratio
+			+ minimap->x_shift);
+	y_pixel = (int)((data->y_pos - y_shift) * minimap->ratio
+			+ minimap->y_shift);
 	i = -3;
 	while (i <= 3)
 	{
 		j = -3;
 		while (j <= 3)
 		{
-			my_mlx_pixel_put(&data->image, x_pixel + i, y_pixel + j, 0x00FF0000);
+			my_mlx_pixel_put
+				(&data->image, x_pixel + i, y_pixel + j, 0x00FF0000);
 			j++;
 		}
 		i++;
@@ -84,7 +86,8 @@ static void	draw_map(t_data *data, double x_shift, double y_shift)
 		{
 			x_pixel = x + minimap->x_shift;
 			y_pixel = y + minimap->y_shift;
-			if (is_wall(data, x / minimap->ratio + x_shift, y / minimap->ratio + y_shift))
+			if (is_wall(data, x / minimap->ratio + x_shift,
+					y / minimap->ratio + y_shift))
 				my_mlx_pixel_put(&data->image, x_pixel, y_pixel, 0x00000000);
 			else
 				my_mlx_pixel_put(&data->image, x_pixel, y_pixel, 0x00CCCCCC);
