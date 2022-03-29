@@ -23,6 +23,7 @@ int	render_next_frame(t_data *data)
 		 &data->image.bpp,&data->image.len, &data->image.end);
 	draw_image(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->image.img, 0, 0);
+	mlx_destroy_image(data->mlx, data->image.img);
 	return (0);
 }
 
