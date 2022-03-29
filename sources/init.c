@@ -16,23 +16,34 @@ void	init_texture(t_data *data, t_texture *texture)
 
 void	init_minimap(t_data *data)
 {
-	t_minimap *minimap;
-
+	t_minimap	*minimap;
+	double		ratio;
+//
 	minimap = &data->minimap;
-	if (data->map_width >= data->map_height)
-	{
+	ratio = (double)SCREEN_WIDTH / 7.0 / 10.0;
+	if (data->map_width >= 10)
 		minimap->x_len = (double)SCREEN_WIDTH / 7.0;
-		minimap->y_len = minimap->x_len * (data->map_height / data->map_width);
-	}
 	else
-	{
-		minimap->y_len = (double)SCREEN_HEIGHT / 7.0;
-		minimap->x_len = minimap->y_len * (data->map_width / data->map_height);
-	}
-	minimap->x_ratio = minimap->x_len / data->map_width;
-	minimap->y_ratio = minimap->y_len / data->map_height;
-	minimap->x_shift = 10;
-	minimap->y_shift = SCREEN_HEIGHT - minimap->y_len - 10;
+		minimap->x_len = data->map_width * ratio;
+	if (data->map_height >= 10)
+		minimap->y_len = (double)SCREEN_WIDTH / 7.0;
+	else
+		minimap->y_len = data->map_height * ratio;
+
+//	if (data->map_width >= data->map_height)
+//	{
+//		minimap->x_len = (double)SCREEN_WIDTH / 7.0;
+//		minimap->y_len = minimap->x_len * (data->map_height / data->map_width);
+//	}
+//	else
+//	{
+//		minimap->y_len = (double)SCREEN_HEIGHT / 7.0;
+//		minimap->x_len = minimap->y_len * (data->map_width / data->map_height);
+//	}
+//	minimap->x_ratio = minimap->x_len / data->map_width;
+//	minimap->y_ratio = minimap->y_len / data->map_height;
+//	minimap->x_shift = 10;
+//	minimap->y_shift = SCREEN_HEIGHT - minimap->y_len - 10;
 }
 
 void	init_data(t_data *data)

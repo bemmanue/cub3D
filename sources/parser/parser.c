@@ -27,6 +27,8 @@ static t_data	*init_ret(void)
 	ret->angle = 0;
 	ret->ceiling = 0x10000000;
 	ret->floor = 0x10000000;
+	ret->x_ratio = (double)SCREEN_WIDTH / ret->map_width;
+	ret->y_ratio = (double)SCREEN_HEIGHT / ret->map_height;
 	return (ret);
 }
 
@@ -76,18 +78,5 @@ t_data	*parser(int argc, char **argv)
 	init_check(argc, argv);
 	ret = init_ret();
 	get_info(ret, argv[1]);
-	ret->north.path = ft_strdup("./textures/grey.xpm");
-	ret->east.path = ft_strdup("./textures/blue.xpm");
-	ret->south.path = ft_strdup("./textures/grey.xpm");
-	ret->west.path = ft_strdup("./textures/blue.xpm");
-	ret->map_width = 10.0;
-	ret->map_height = 10.0;
-	ret->floor = 0x0088BB66;
-	ret->ceiling = 0x0099CCDD;
-	ret->x_pos = 5.0;
-	ret->y_pos = 5.0;
-	ret->angle = 0.0;
-	ret->x_ratio = (double)SCREEN_WIDTH / ret->map_width;
-	ret->y_ratio = (double)SCREEN_HEIGHT / ret->map_height;
 	return (ret);
 }
