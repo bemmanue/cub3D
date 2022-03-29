@@ -21,6 +21,8 @@ static int	help_scan(int ptr, int flag, t_map *ref)
 
 	index = 0;
 	flag_down = 0;
+	if (!ref)
+		return (ptr);
 	while (index < ref->count)
 	{
 		left = ref->interval[index][0];
