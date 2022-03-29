@@ -17,7 +17,10 @@ void	my_mlx_pixel_put(t_image *image, int x, int y, unsigned int color)
 	char	*dst;
 
 	dst = image->addr + (y * image->len + x * (image->bpp / 8));
-	*(unsigned int *)dst = color;
+	if (color > 0x00FFFFFF)
+		*(unsigned int *)dst = 0x00000000;
+	else
+		*(unsigned int *)dst = color;
 }
 
 void	draw_image(t_data *data)
