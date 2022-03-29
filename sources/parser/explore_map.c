@@ -79,14 +79,13 @@ static char	**go_through(int size, char **src, int x, int y)
 		err_msg(pos_error);
 	start = new_nod(NULL, NULL, src[y]);
 	init_nods(size, start, y, src);
-	check(start);
+//	check(start);
 	while (start->up)
 		start = start->up;
 	temp = start;
 	while (start)
 	{
 		check_chips(start);
-		printf("start:\t%s\n", start->str);
 		checker(start);
 		start = start->down;
 	}

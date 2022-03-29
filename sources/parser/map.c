@@ -12,17 +12,6 @@
 
 #include <parser.h>
 
-static void	duplicate(t_data *info)
-{
-	char	**temp;
-
-	temp = ft_arrdup(info->map, 10);
-	if (!temp)
-		err_msg(mem_error);
-	free_arr(&info->map);
-	info->map = temp;
-}
-
 static int	check_line(char *line, t_flag *flags)
 {
 	int	len;
@@ -51,6 +40,21 @@ static int	check_line(char *line, t_flag *flags)
 	return (ret);
 }
 
+static int	gnl(t_data *info, char **line, int fd, int index)
+{
+	int	detec;
+
+	info->map[index] = ft_strdup(*line);
+	free(*line);
+	*line = NULL;
+	detec = get_next_line(fd, line);
+	if (!detec)
+		return (0);
+	if ((index + 1) % 25 == 0)
+		duplicate(info);
+	return (detec);
+}
+
 static void	get_map(t_data *info, int fd, char *line, t_flag *flags)
 {
 	int	index;
@@ -62,20 +66,18 @@ static void	get_map(t_data *info, int fd, char *line, t_flag *flags)
 	while (detec >= 0)
 	{
 		get = check_line(line, flags);
+		if (!detec && !ft_strlen(line))
+			break ;
 		if (get)
 		{
 			info->x_pos = get;
 			info->y_pos = index;
 		}
-		info->map[index++] = ft_strdup(line);
-		free(line);
-		line = NULL;
-		if (!detec)
-			break ;
-		detec = get_next_line(fd, &line);
-		if (index % 25 == 0)
-			duplicate(info);
+		detec = gnl(info, &line, fd, index);
+		index++;
 	}
+	free(line);
+	line = NULL;
 	if (detec < 0)
 		err_msg(get_error);
 }

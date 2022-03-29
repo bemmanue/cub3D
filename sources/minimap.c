@@ -35,21 +35,21 @@
 void	draw_minimap(t_data *data)
 {
 	t_minimap	*minimap;
-	double		x;
-	double		y;
+	int			x;
+	int			y;
 	int			x_pixel;
 	int			y_pixel;
 
 	minimap = &data->minimap;
-	y = 0.0;
+	y = 0;
 	while (y < minimap->y_len)
 	{
-		x = 0.0;
+		x = 0;
 		while (x < minimap->x_len)
 		{
 			x_pixel = x + minimap->x_shift;
 			y_pixel = y + minimap->y_shift;
-			my_mlx_pixel_put(&data->image, x, y, 0x00000000);
+			my_mlx_pixel_put(&data->image, x_pixel, y_pixel, 0x00000000);
 			x++;
 		}
 		y++;

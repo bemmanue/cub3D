@@ -45,8 +45,8 @@ typedef struct		s_ray
 
 typedef	struct		s_minimap
 {
-	double			x_len;
-	double			y_len;
+	int				x_len;
+	int				y_len;
 	double			x_ratio;
 	double 			y_ratio;
 	int				x_shift;

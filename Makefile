@@ -52,8 +52,8 @@ $(OBJS):		| $(OBJ_DIR)
 
 $(OBJ_DIR):
 				@mkdir $(OBJ_DIR)
-				@mkdir $(OBJ_DIR)/parser
-				@mkdir $(OBJ_DIR)/parser/$(GNL)
+				@mkdir $(OBJ_DIR)/$(PARSER)
+				@mkdir $(OBJ_DIR)/$(PARSER)$(GNL)
 
 lib:
 				$(LIBFTMAKE)
