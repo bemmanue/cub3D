@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   ft_isnumeric.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bemmanue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/20 14:27:00 by bemmanue          #+#    #+#             */
-/*   Updated: 2022/03/29 19:47:59 by dwillard         ###   ########.fr       */
+/*   Created: 2022/02/28 14:21:45 by bemmanue          #+#    #+#             */
+/*   Updated: 2022/02/28 14:21:50 by bemmanue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strndup(const char *s1, size_t n)
+int	ft_isnumeric(char *str)
 {
-	char	*new;
-	size_t	index;
+	int	i;
 
-	if (!s1)
-		return (NULL);
-	new = malloc(sizeof (char) * (n + 1));
-	if (!new)
-		return (NULL);
-	index = 0;
-	while (index < n && s1[index])
+	i = 0;
+	if (ft_strchr("-+", *str))
+		str++;
+	while (str[i])
 	{
-		new[index] = s1[index];
-		index++;
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
 	}
-	while (index < n)
-		new[index++] = '1';
-	new[index] = '\0';
-	return (new);
+	if (i > 19 || ft_atoul(str) > 9223372036854775807)
+		return (0);
+	return (1);
 }

@@ -18,26 +18,32 @@ SRCS =		ft_atoi.c			ft_bzero.c 			ft_calloc.c 	\
      		ft_lstdelone.c 		ft_lstiter.c 		ft_lstlast.c 	\
 			ft_lstmap.c			ft_lstnew.c			ft_lstsize.c	\
 			ft_skipchar.c		ft_skipnchar.c		ft_strcut.c		\
-			ft_strndup.c
+			ft_atoul.c			ft_arrlen.c			ft_strndup.c	\
+			ft_free_strs.c		ft_isnumeric.c
 
 OBJS = 		${SRCS:.c=.o}
 DEPS =		${SRCS:.c=.d}
-BNS_OBJS =	${BNS:.c=.o}
-BNS_DEPS =	${BNS:.c=.d}
 CC = 		clang
 CFLAGS =	-Wall -Wextra -Werror -MMD -c
 
 all: 		$(NAME)
 .c.o:
-		$(CC) $(CFLAGS) $< -o $@
+			@$(CC) $(CFLAGS) $< -o $@
+			@printf "\033[0;34mObject %-50.100s [\033[0;32m✔\033[0;34m]\r" $@
+
 $(NAME): 	$(OBJS)
-		ar -rcs $(NAME) $?
-bonus:
-		make OBJS="$(BNS_OBJS)" all
+			@ar -rcs $(NAME) $?
+			@printf '\033[1;32m%-100.100s\n\033[0m' 'libft compile success!'
+
 clean:
-		rm -f $(OBJS) $(BNS_OBJS) $(DEPS) $(BNS_DEPS)
+			@rm -f $(OBJS) $(DEPS)
+
+
 fclean: 	clean
-		rm -f $(NAME)
-re:		fclean all
-.PHONY:    	all bonus clean fclean re
--include			$(OBJS:.o=.d) $(BNS_OBJS:.o=.d)
+			@rm -f $(NAME)
+			@printf '\033[1;35mDelete libft success!\n\033[0m'
+
+re:			fclean all
+
+.PHONY:    	all clean fclean re
+-include	$(OBJS:.o=.d)

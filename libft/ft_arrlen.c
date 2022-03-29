@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_arrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bemmanue <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dwillard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/24 17:26:50 by bemmanue          #+#    #+#             */
-/*   Updated: 2021/04/24 18:04:16 by bemmanue         ###   ########.fr       */
+/*   Created: 2022/02/18 18:16:00 by dwillard          #+#    #+#             */
+/*   Updated: 2022/02/18 18:44:00 by dwillard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+int	ft_arrlen(char **array)
 {
-	size_t	size;
-	char	*copy;
+	int	i;
 
-	if (!s1)
-		return (NULL);
-	size = ft_strlen(s1) + 1;
-	copy = malloc(size);
-	if (copy == NULL)
-		return (NULL);
-	ft_memcpy(copy, s1, size);
-	return (copy);
+	if (!array)
+		return (0);
+	i = 0;
+	while (array[i])
+		i++;
+	return (i);
 }

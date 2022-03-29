@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   ft_atoul.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bemmanue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/20 14:27:00 by bemmanue          #+#    #+#             */
-/*   Updated: 2022/03/29 19:47:59 by dwillard         ###   ########.fr       */
+/*   Created: 2022/02/18 18:23:17 by bemmanue          #+#    #+#             */
+/*   Updated: 2022/02/18 18:23:31 by bemmanue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strndup(const char *s1, size_t n)
+uint64_t	ft_atoul(const char *str)
 {
-	char	*new;
-	size_t	index;
+	uint64_t	nbr;
+	int			dgt;
 
-	if (!s1)
-		return (NULL);
-	new = malloc(sizeof (char) * (n + 1));
-	if (!new)
-		return (NULL);
-	index = 0;
-	while (index < n && s1[index])
+	nbr = 0;
+	while ((*str >= 9 && *str <= 13) || *str == ' ')
+		str++;
+	while (*str >= '0' && *str <= '9')
 	{
-		new[index] = s1[index];
-		index++;
+		nbr *= 10;
+		dgt = *str++ - 48;
+		nbr += dgt;
 	}
-	while (index < n)
-		new[index++] = '1';
-	new[index] = '\0';
-	return (new);
+	return (nbr);
 }
