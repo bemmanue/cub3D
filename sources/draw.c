@@ -1,4 +1,3 @@
-
 #include "cub.h"
 
 int	texture_x_position(t_texture *texture, t_ray ray)
@@ -20,11 +19,8 @@ int	texture_x_position(t_texture *texture, t_ray ray)
 	else if (ray.wall_direct == 'e' || ray.wall_direct == 'w')
 	{
 		while (i <= texture->width)
-		{
-			if (ray.wall_ypos <= (int)ray.wall_ypos + (i / texture->width))
+			if (ray.wall_ypos <= (int)ray.wall_ypos + (i++ / texture->width))
 				position++;
-			i += 1.0;
-		}
 	}
 	if (ray.wall_direct == 'e' || ray.wall_direct == 'w')
 		position = texture->width - position + 1;
@@ -57,8 +53,9 @@ unsigned int	define_color(t_data *data, int x, int y)
 		texture = &data->west;
 	text_x = texture_x_position(texture, data->ray[x]) - 1;
 	text_y = texture_y_position(texture, data->ray[x], y);
-	color = *(unsigned int *)(texture->image->addr +
-		(text_y * texture->image->len + text_x * (texture->image->bpp / 8)));
+	color = *(uint32_t *)(texture->image->addr
+			+ (text_y * texture->image->len + text_x
+				* (texture->image->bpp / 8)));
 	return (color);
 }
 

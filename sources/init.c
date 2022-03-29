@@ -1,4 +1,3 @@
-
 #include "cub.h"
 
 void	init_texture(t_data *data, t_texture *texture)
@@ -11,12 +10,13 @@ void	init_texture(t_data *data, t_texture *texture)
 	if (!texture->image->img)
 		exit_error("Memory error\n");
 	texture->image->addr = mlx_get_data_addr(texture->image->img,
-		 &texture->image->bpp, &texture->image->len, &texture->image->end);
+			&texture->image->bpp,
+			&texture->image->len, &texture->image->end);
 }
 
 void	init_minimap(t_data *data)
 {
-	t_minimap *minimap;
+	t_minimap	*minimap;
 
 	minimap = &data->minimap;
 	if (data->map_width >= data->map_height)

@@ -1,5 +1,15 @@
 #include "cub.h"
 
+static int	condition(double x, double y, t_data *data, t_minimap *minimap)
+{
+	if (x / minimap->x_ratio < data->x_pos + minimap->x_ratio / 50.0
+		&& x / minimap->x_ratio > data->x_pos - minimap->x_ratio / 50.0
+		&& y / minimap->y_ratio < data->y_pos + minimap->y_ratio / 50.0
+		&& y / minimap->y_ratio > data->y_pos - minimap->y_ratio / 50.0)
+		return (1);
+	return (0);
+}
+
 void	draw_minimap(t_data *data)
 {
 	t_minimap	*minimap;
@@ -21,10 +31,7 @@ void	draw_minimap(t_data *data)
 				my_mlx_pixel_put(&data->image, x_pixel, y_pixel, 0x00000000);
 			else
 				my_mlx_pixel_put(&data->image, x_pixel, y_pixel, 0x00CCCCCC);
-			if (x / minimap->x_ratio < data->x_pos + minimap->x_ratio / 50.0
-				&& x / minimap->x_ratio > data->x_pos - minimap->x_ratio / 50.0
-				&& y / minimap->y_ratio < data->y_pos + minimap->y_ratio / 50.0
-				&& y / minimap->y_ratio > data->y_pos - minimap->y_ratio / 50.0)
+			if (condition(x, y, data, minimap))
 				my_mlx_pixel_put(&data->image, x_pixel, y_pixel, 0x00FF0000);
 			x++;
 		}

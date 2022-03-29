@@ -1,4 +1,3 @@
-
 #include "cub.h"
 
 int	is_wall(t_data *data, double x, double y)
@@ -29,14 +28,16 @@ char	define_direct(t_data *data, double x, double y)
 	next_down = y + (1.0 / data->y_ratio);
 	if (x < data->x_pos)
 	{
-		if (data->map[(int)next_up][(int)x] == '1' && data->map[(int)next_down][(int)x] == '1')
+		if (data->map[(int)next_up][(int)x] == '1'
+			&& data->map[(int)next_down][(int)x] == '1')
 			direct = 'w';
 		else
 			direct = specify_direct(data, x, y, 'w');
 	}
 	else
 	{
-		if (data->map[(int)next_up][(int)x] == '1' && data->map[(int)next_down][(int)x] == '1')
+		if (data->map[(int)next_up][(int)x] == '1'
+			&& data->map[(int)next_down][(int)x] == '1')
 			direct = 'e';
 		else
 			direct = specify_direct(data, x, y, 'e');
