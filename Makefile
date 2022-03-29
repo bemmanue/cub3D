@@ -32,7 +32,7 @@ OBJS 		=	$(patsubst %,$(OBJ_DIR)/%,$(SRCS:.c=.o))
 DEPS		=	$(OBJS:.o=.d)
 
 LIBFT		=	libft/
-LIBFTMAKE	=	make all -sC $(LIBFT)
+LIBFTMAKE	=	@make all -sC $(LIBFT)
 
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror -g -MMD
@@ -45,7 +45,7 @@ $(OBJ_DIR)/%.o:	%.c
 				@printf "\033[0;33mObject %-40.100s [\033[0;32m✔\033[0;33m]\r" $@
 
 $(NAME):		$(OBJS)
-				gcc -Lmlx -lmlx -framework OpenGL -framework AppKit $(OBJS) \
+				@gcc -Lmlx -lmlx -framework OpenGL -framework AppKit $(OBJS) \
 -L$(LIBFT) -lft -I$(INCLUDES) -o $(NAME)
 
 $(OBJS):		| $(OBJ_DIR)
@@ -60,4 +60,13 @@ lib:
 
 
 clean:
-				rm -rf $(OBJ_DIR) $(NAME)
+				@$(MAKE) -sC $(LIBFT) clean
+				@rm -rf $(OBJ_DIR)
+
+fclean:			clean
+				@rm $(NAME)
+
+re:				fclean all
+
+.PHONY:			all lib clean fclean re
+-include	$(DEPS)
