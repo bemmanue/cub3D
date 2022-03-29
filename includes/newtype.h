@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   newtype.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dwillard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/29 13:24:10 by dwillard          #+#    #+#             */
+/*   Updated: 2022/03/29 13:24:12 by dwillard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef NEWTYPE_H
 # define NEWTYPE_H
 
@@ -5,7 +17,7 @@
 # define	SCREEN_HEIGHT	600
 # define	MINIMAP_SIZE	150
 
-# define	VIEW_RANGE		66
+# define	VIEW_RANGE			66
 
 # define 	KEY_M 			46
 # define 	KEY_D 			2
@@ -16,7 +28,8 @@
 # define 	ARROW_LEFT		43
 # define	ESCAPE			53
 
-typedef struct	s_image
+
+typedef struct s_image
 {
 	void			*img;
 	char			*addr;
@@ -25,7 +38,7 @@ typedef struct	s_image
 	int				end;
 }					t_image;
 
-typedef	struct	s_texture
+typedef struct s_texture
 {
 	char			*path;
 	int				width;
@@ -33,7 +46,7 @@ typedef	struct	s_texture
 	t_image			*image;
 }					t_texture;
 
-typedef struct		s_ray
+typedef struct s_ray
 {
 	double			angle;
 	double			ray_len;
@@ -45,7 +58,7 @@ typedef struct		s_ray
 	double			wall_bottom;
 }					t_ray;
 
-typedef	struct		s_minimap
+typedef struct s_minimap
 {
 	int				x_len;
 	int				y_len;
@@ -55,7 +68,7 @@ typedef	struct		s_minimap
 	bool			is_open;
 }					t_minimap;
 
-typedef	struct	s_data
+typedef struct s_data
 {
 	char			**map;
 	void			*mlx;
@@ -72,7 +85,7 @@ typedef	struct	s_data
 	double			map_height;
 	double			angle;
 	double			x_pos;
-	double 			y_pos;
+	double			y_pos;
 	t_ray			ray[SCREEN_WIDTH];
 	double			x_ratio;
 	double			y_ratio;
@@ -80,7 +93,7 @@ typedef	struct	s_data
 
 enum e_const
 {
-	empty,
+	empty = 1,
 	map_error,
 	pos_error,
 	ceiling,
@@ -113,7 +126,7 @@ struct s_byte
 
 typedef union u_flag
 {
-	char			val;
+	unsigned char	val;
 	struct s_byte	flag;
 }				t_flag;
 

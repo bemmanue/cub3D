@@ -22,20 +22,14 @@ static int	get_color(char *str, int index)
 	while (counter < 3 && str[index])
 	{
 		color = color << 8;
-		if (ft_atoi(&str[index]) > 255 || ft_atoi(&str[index]) < 0)
-			return (colors_err);
-		color += ft_atoi(&str[index]);
-		while (str[index] == ' ')
+		color += cub_atoi(&str[index]);
+		while (str[index] == ' ' || ft_isdigit(str[index]))
 			index++;
-		while (ft_isdigit(str[index]))
-			index++;
-		while (str[index] == ' ')
-			index++;
-		if (str[index] == ',')
+		if (str[index] == ',' && counter < 2)
 			index++;
 		counter++;
 	}
-	if (counter < 3 || str[index])
+	if (counter != 3 || str[index])
 		err_msg(colors_err);
 	return (color);
 }
@@ -55,7 +49,7 @@ static int	parse_news(char *str, t_data *info)
 		fd = open(&str[index], O_WRONLY);
 	else
 		err_msg(news_error);
-	if (fd < 0)
+	if (fd < 0 || ft_strncmp(".xpm", ft_strrchr(&str[index], '.'), 4))
 		err_msg(news_op_error);
 	close(fd);
 	if (str[0] == north)

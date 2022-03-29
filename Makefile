@@ -15,6 +15,7 @@ SRCS		=	main.c										\
 				utils.c										\
 				$(PARSER)parser.c							\
 				$(PARSER)parse_utils.c						\
+				$(PARSER)parse_utils2.c						\
 				$(PARSER)get_info.c							\
 				$(PARSER)map.c								\
 				$(PARSER)map_utils.c 						\

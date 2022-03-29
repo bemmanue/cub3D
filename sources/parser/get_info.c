@@ -12,17 +12,6 @@
 
 #include <parser.h>
 
-void	duplicate(t_data *info)
-{
-	char	**temp;
-
-	temp = ft_arrdup(info->map, 10);
-	if (!temp)
-		err_msg(mem_error);
-	free_arr(&info->map);
-	info->map = temp;
-}
-
 static void	case_error(const char *path, unsigned int bit, int flag)
 {
 	if (!flag)
@@ -71,17 +60,13 @@ static void	check_action(t_data *info, int check, t_flag *flags)
 		return ;
 }
 
-void	get_info(t_data *info, char *cub)
+void	get_info(t_data *info, int fd)
 {
-	int		fd;
 	int		check;
 	t_flag	flags;
 	char	*line;
 
 	flags.val = 0;
-	fd = open(cub, O_RDONLY);
-	if (fd < 0)
-		return ;
 	line = NULL;
 	while (get_next_line(fd, &line))
 	{
@@ -97,4 +82,6 @@ void	get_info(t_data *info, char *cub)
 	free(line);
 	line = NULL;
 	close(fd);
+	if (flags.val != 0xff)
+		err_msg(0);
 }
