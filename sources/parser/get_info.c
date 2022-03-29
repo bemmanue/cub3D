@@ -82,4 +82,6 @@ void	get_info(t_data *info, int fd)
 	free(line);
 	line = NULL;
 	close(fd);
+	if (flags.val != 0xff)
+		err_msg(0);
 }

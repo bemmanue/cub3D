@@ -123,7 +123,7 @@ struct s_byte
 
 typedef union u_flag
 {
-	char			val;
+	unsigned char	val;
 	struct s_byte	flag;
 }				t_flag;
 
