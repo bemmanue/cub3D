@@ -26,6 +26,7 @@ static char	**getarr(int counter, t_map *start, int len)
 		ret[index] = ft_strndup(start->str, len);
 		if (!ret[index])
 			err_msg(mem_error);
+		replace(ret[index]);
 		index++;
 		start = start->down;
 	}

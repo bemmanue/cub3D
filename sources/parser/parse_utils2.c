@@ -12,6 +12,19 @@
 
 #include <parser.h>
 
+void	replace(char *str)
+{
+	int	index;
+
+	index = 0;
+	while (str[index])
+	{
+		if (str[index] == ' ')
+			str[index] = '1';
+		index++;
+	}
+}
+
 _Noreturn void	err_msg(int flag)
 {
 	ft_putendl_fd("Error", 2);

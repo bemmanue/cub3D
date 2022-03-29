@@ -24,7 +24,7 @@
 # define KEY_A	 		0
 # define KEY_W			13
 # define KEY_S			1
-# define ARROW_RIGHT		47
+# define ARROW_RIGHT	47
 # define ARROW_LEFT		43
 # define ESCAPE			53
 
