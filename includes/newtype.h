@@ -3,9 +3,11 @@
 
 # define 	SCREEN_WIDTH	800
 # define	SCREEN_HEIGHT	600
+# define	MINIMAP_SIZE	150
 
 # define	VIEW_RANGE		66
 
+# define 	KEY_M 			46
 # define 	KEY_D 			2
 # define 	KEY_A	 		0
 # define 	KEY_W			13
@@ -47,10 +49,10 @@ typedef	struct		s_minimap
 {
 	int				x_len;
 	int				y_len;
-	double			x_ratio;
-	double 			y_ratio;
 	int				x_shift;
 	int				y_shift;
+	double			ratio;
+	bool			is_open;
 }					t_minimap;
 
 typedef	struct	s_data

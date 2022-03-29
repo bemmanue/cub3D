@@ -1,4 +1,3 @@
-
 #include "cub.h"
 
 void	init_texture(t_data *data, t_texture *texture)
@@ -11,42 +10,29 @@ void	init_texture(t_data *data, t_texture *texture)
 	if (!texture->image->img)
 		exit_error("Memory error\n");
 	texture->image->addr = mlx_get_data_addr(texture->image->img,
-		 &texture->image->bpp, &texture->image->len, &texture->image->end);
+			&texture->image->bpp,
+			&texture->image->len, &texture->image->end);
 }
 
 void	init_minimap(t_data *data)
 {
 	t_minimap	*minimap;
-	double		ratio;
-	int 		max_map_x_len;
-	int  		max_map_y_len;
+	int 		max_map_size;
 
 	minimap = &data->minimap;
-	max_map_x_len = SCREEN_WIDTH / 7;
-	max_map_y_len = SCREEN_HEIGHT / 7;
-	ratio = max_map_x_len / 10.0;
+	max_map_size = MINIMAP_SIZE;
+	minimap->ratio = max_map_size / 10.0;
 	if (data->map_width >= 10)
-		minimap->x_len = max_map_x_len;
+		minimap->x_len = max_map_size;
 	else
-		minimap->x_len = (int)(data->map_width * ratio);
+		minimap->x_len = (int)(data->map_width * minimap->ratio);
 	if (data->map_height >= 10)
-		minimap->y_len = max_map_y_len;
+		minimap->y_len = max_map_size;
 	else
-		minimap->y_len = (int)(data->map_height * ratio);
-//	if (data->map_width >= data->map_height)
-//	{
-//		minimap->x_len = (double)SCREEN_WIDTH / 7.0;
-//		minimap->y_len = minimap->x_len * (data->map_height / data->map_width);
-//	}
-//	else
-//	{
-//		minimap->y_len = (double)SCREEN_HEIGHT / 7.0;
-//		minimap->x_len = minimap->y_len * (data->map_width / data->map_height);
-//	}
-//	minimap->x_ratio = minimap->x_len / data->map_width;
-//	minimap->y_ratio = minimap->y_len / data->map_height;
-	minimap->x_shift = 10 + (max_map_x_len - minimap->x_len) / 2;
-	minimap->y_shift = SCREEN_HEIGHT - minimap->y_len - ((max_map_y_len - minimap->y_len) / 2) - 10;
+		minimap->y_len = (int)(data->map_height * minimap->ratio);
+	minimap->x_shift = 10;
+	minimap->y_shift = SCREEN_HEIGHT - minimap->y_len - 10;
+	minimap->is_open = 0;
 }
 
 void	init_data(t_data *data)

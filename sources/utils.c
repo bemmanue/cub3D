@@ -1,4 +1,3 @@
-
 #include "cub.h"
 
 void	exit_error(char *message)

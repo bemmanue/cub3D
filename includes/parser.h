@@ -17,6 +17,7 @@
 # include "../mlx/mlx.h"
 # include "../sources/parser/get_next_line/get_next_line.h"
 # include <stdio.h>
+# include <stdbool.h>
 # include <fcntl.h>
 # include <math.h>
 # include <newtype.h>

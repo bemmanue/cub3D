@@ -1,4 +1,3 @@
-
 #include "cub.h"
 
 void	shift_position(int keycode, t_data *data)
@@ -6,7 +5,7 @@ void	shift_position(int keycode, t_data *data)
 	double	new_x;
 	double	new_y;
 	double	angle;
-	double 	distance;
+	double	distance;
 
 	distance = 0.3;
 	angle = 0.0;
@@ -18,8 +17,10 @@ void	shift_position(int keycode, t_data *data)
 		angle = -90.0;
 	else if (keycode == KEY_D)
 		angle = 90.0;
-	new_x = data->x_pos + (distance * (sin((data->angle + angle) * M_PI / 180.0)));
-	new_y = data->y_pos - (distance * (cos((data->angle + angle) * M_PI / 180.0)));
+	new_x = data->x_pos + (distance * (sin((data->angle + angle)
+					* M_PI / 180.0)));
+	new_y = data->y_pos - (distance * (cos((data->angle + angle)
+					* M_PI / 180.0)));
 	if (!is_wall(data, new_x, new_y))
 	{
 		data->x_pos = new_x;
@@ -36,6 +37,13 @@ int	key_hook(int keycode, t_data *data)
 		data->angle += 6.0;
 	else if (keycode == ARROW_LEFT)
 		data->angle -= 6.0;
+	else if (keycode == KEY_M)
+	{
+		if (!data->minimap.is_open)
+			data->minimap.is_open = 1;
+		else
+			data->minimap.is_open = 0;
+	}
 	else if (keycode == ESCAPE)
 		exit (0);
 	return (0);

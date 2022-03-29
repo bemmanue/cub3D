@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   explore_map.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dwillard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/29 12:46:45 by dwillard          #+#    #+#             */
+/*   Updated: 2022/03/29 12:47:51 by dwillard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <parser.h>
 
 static int	help_scan(int ptr, int flag, t_map *ref)
@@ -79,7 +91,6 @@ static char	**go_through(int size, char **src, int x, int y)
 		err_msg(pos_error);
 	start = new_nod(NULL, NULL, src[y]);
 	init_nods(size, start, y, src);
-//	check(start);
 	while (start->up)
 		start = start->up;
 	temp = start;

@@ -60,9 +60,9 @@ static void	check_action(t_data *info, int check, t_flag *flags)
 	else if (check == south)
 		flags->flag.s = coltex(info->south.path, flags->flag.s, 0);
 	else if (check == east)
-		flags->flag.e = coltex(info->west.path, flags->flag.e, 0);
+		flags->flag.e = coltex(info->east.path, flags->flag.e, 0);
 	else if (check == west)
-		flags->flag.w = coltex(info->east.path, flags->flag.w, 0);
+		flags->flag.w = coltex(info->west.path, flags->flag.w, 0);
 	else if (check == floor_clr)
 		flags->flag.f = coltex(NULL, flags->flag.f, 1);
 	else if (check == ceiling)
