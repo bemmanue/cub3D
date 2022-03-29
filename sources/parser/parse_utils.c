@@ -55,11 +55,11 @@ static int	parse_news(char *str, t_data *info)
 	if (str[0] == north)
 		info->north.path = ft_strdup(&str[index]);
 	else if (str[0] == east)
-		info->west.path = ft_strdup(&str[index]);
+		info->east.path = ft_strdup(&str[index]);
 	else if (str[0] == south)
 		info->south.path = ft_strdup(&str[index]);
 	else if (str[0] == west)
-		info->east.path = ft_strdup(&str[index]);
+		info->west.path = ft_strdup(&str[index]);
 	return ((int)str[0]);
 }
 
