@@ -19,9 +19,8 @@ int	is_wall(t_data *data, double x, double y)
 	return (0);
 }
 
-char	specify_direct(t_data *data, double x, double y, char d)
+char	specify_direct(t_data *data, double y, char d)
 {
-	(void)x;
 	if (y < data->y_pos && (y - (int)y) > 0.99)
 		return ('n');
 	else if (y > data->y_pos && (y - (int)y) < 0.01)
@@ -36,15 +35,15 @@ char	define_direct(t_data *data, double x, double y)
 	double	next_down;
 	char	direct;
 
-	next_up = y - (1.0 / data->y_ratio);
-	next_down = y + (1.0 / data->y_ratio);
+	next_up = y - (2.0 / data->y_ratio);
+	next_down = y + (2.0 / data->y_ratio);
 	if (x < data->x_pos)
 	{
 		if (data->map[(int)next_up][(int)x] == '1'
 			&& data->map[(int)next_down][(int)x] == '1')
 			direct = 'w';
 		else
-			direct = specify_direct(data, x, y, 'w');
+			direct = specify_direct(data, y, 'w');
 	}
 	else
 	{
@@ -52,7 +51,7 @@ char	define_direct(t_data *data, double x, double y)
 			&& data->map[(int)next_down][(int)x] == '1')
 			direct = 'e';
 		else
-			direct = specify_direct(data, x, y, 'e');
+			direct = specify_direct(data, y, 'e');
 	}
 	return (direct);
 }

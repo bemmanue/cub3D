@@ -46,7 +46,7 @@ $(OBJ_DIR)/%.o:	%.c
 				@printf "\033[0;33mObject %-40.100s [\033[0;32m✔\033[0;33m]\r" $@
 
 $(NAME):		$(OBJS)
-				@gcc -Lmlx -lmlx -framework OpenGL -framework AppKit $(OBJS) \
+				@$(CC) -Lmlx -lmlx -framework OpenGL -framework AppKit $(OBJS) \
 -L$(LIBFT) -lft -I$(INCLUDES) -o $(NAME)
 
 $(OBJS):		| $(OBJ_DIR)

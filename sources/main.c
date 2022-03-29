@@ -24,7 +24,8 @@ void	draw_image(t_data *data)
 {
 	cast_rays(data);
 	draw_walls(data);
-	draw_minimap(data);
+	if (data->minimap.is_open)
+		draw_minimap(data);
 }
 
 int	render_next_frame(t_data *data)

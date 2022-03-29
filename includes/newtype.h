@@ -13,18 +13,21 @@
 #ifndef NEWTYPE_H
 # define NEWTYPE_H
 
-# define SCREEN_WIDTH	800
-# define SCREEN_HEIGHT	600
+# define 	SCREEN_WIDTH	800
+# define	SCREEN_HEIGHT	600
+# define	MINIMAP_SIZE	150
 
-# define VIEW_RANGE		66
+# define	VIEW_RANGE			66
 
-# define KEY_D 			2
-# define KEY_A	 		0
-# define KEY_W			13
-# define KEY_S			1
-# define ARROW_RIGHT		47
-# define ARROW_LEFT		43
-# define ESCAPE			53
+# define 	KEY_M 			46
+# define 	KEY_D 			2
+# define 	KEY_A	 		0
+# define 	KEY_W			13
+# define 	KEY_S			1
+# define 	ARROW_RIGHT		47
+# define 	ARROW_LEFT		43
+# define	ESCAPE			53
+
 
 typedef struct s_image
 {
@@ -57,12 +60,12 @@ typedef struct s_ray
 
 typedef struct s_minimap
 {
-	double			x_len;
-	double			y_len;
-	double			x_ratio;
-	double			y_ratio;
+	int				x_len;
+	int				y_len;
 	int				x_shift;
 	int				y_shift;
+	double			ratio;
+	bool			is_open;
 }					t_minimap;
 
 typedef struct s_data

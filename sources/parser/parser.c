@@ -27,6 +27,8 @@ static t_data	*init_ret(void)
 	ret->angle = 0;
 	ret->ceiling = 0x10000000;
 	ret->floor = 0x10000000;
+	ret->x_ratio = (double)SCREEN_WIDTH / ret->map_width;
+	ret->y_ratio = (double)SCREEN_HEIGHT / ret->map_height;
 	return (ret);
 }
 
