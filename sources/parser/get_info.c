@@ -12,6 +12,17 @@
 
 #include <parser.h>
 
+void	duplicate(t_data *info)
+{
+	char	**temp;
+
+	temp = ft_arrdup(info->map, 10);
+	if (!temp)
+		err_msg(mem_error);
+	free_arr(&info->map);
+	info->map = temp;
+}
+
 static void	case_error(const char *path, unsigned int bit, int flag)
 {
 	if (!flag)
