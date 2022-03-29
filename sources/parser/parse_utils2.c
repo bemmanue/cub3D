@@ -12,15 +12,21 @@
 
 #include <parser.h>
 
-void	replace(char *str)
+void	replace(char **arr)
 {
-	int	index;
+	int		index;
+	int		jndex;
 
 	index = 0;
-	while (str[index])
+	while (arr[index])
 	{
-		if (str[index] == ' ')
-			str[index] = '1';
+		jndex = 0;
+		while (arr[index][jndex])
+		{
+			if (arr[index][jndex] == ' ')
+				arr[index][jndex] = '1';
+			jndex++;
+		}
 		index++;
 	}
 }

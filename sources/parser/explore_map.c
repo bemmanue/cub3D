@@ -120,5 +120,6 @@ void	explore_map(t_data *info)
 	}
 	info->map = go_through(size, temp, (int)info->x_pos, (int)info->y_pos);
 	free_arr(&temp);
+	replace(info->map);
 	get_params(info);
 }

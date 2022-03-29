@@ -37,6 +37,6 @@ void			map(t_data *info, int fd, char *line, t_flag *flags);
 void			explore_map(t_data *info);
 void			destroy_map(t_map *start);
 _Noreturn void	err_msg(int flag);
-void			replace(char *str);
+void			replace(char **arr);
 
 #endif

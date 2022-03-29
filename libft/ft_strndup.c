@@ -29,7 +29,7 @@ char	*ft_strndup(const char *s1, size_t n)
 		index++;
 	}
 	while (index < n)
-		new[index++] = '\0';
+		new[index++] = '1';
 	new[index] = '\0';
 	return (new);
 }
