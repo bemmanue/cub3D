@@ -81,7 +81,7 @@ void	get_info(t_data *info, char *cub)
 	flags.val = 0;
 	fd = open(cub, O_RDONLY);
 	if (fd < 0)
-		return ;
+		err_msg(0);
 	line = NULL;
 	while (get_next_line(fd, &line))
 	{

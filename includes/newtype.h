@@ -1,20 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   newtype.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dwillard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/29 13:24:10 by dwillard          #+#    #+#             */
+/*   Updated: 2022/03/29 13:24:12 by dwillard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef NEWTYPE_H
 # define NEWTYPE_H
 
-# define 	SCREEN_WIDTH	800
-# define	SCREEN_HEIGHT	600
+# define SCREEN_WIDTH	800
+# define SCREEN_HEIGHT	600
 
-# define	VIEW_RANGE		66
+# define VIEW_RANGE		66
 
-# define 	KEY_D 			2
-# define 	KEY_A	 		0
-# define 	KEY_W			13
-# define 	KEY_S			1
-# define 	ARROW_RIGHT		47
-# define 	ARROW_LEFT		43
-# define	ESCAPE			53
+# define KEY_D 			2
+# define KEY_A	 		0
+# define KEY_W			13
+# define KEY_S			1
+# define ARROW_RIGHT		47
+# define ARROW_LEFT		43
+# define ESCAPE			53
 
-typedef struct	s_image
+typedef struct s_image
 {
 	void			*img;
 	char			*addr;
@@ -23,7 +35,7 @@ typedef struct	s_image
 	int				end;
 }					t_image;
 
-typedef	struct	s_texture
+typedef struct s_texture
 {
 	char			*path;
 	int				width;
@@ -31,7 +43,7 @@ typedef	struct	s_texture
 	t_image			*image;
 }					t_texture;
 
-typedef struct		s_ray
+typedef struct s_ray
 {
 	double			angle;
 	double			ray_len;
@@ -43,17 +55,17 @@ typedef struct		s_ray
 	double			wall_bottom;
 }					t_ray;
 
-typedef	struct		s_minimap
+typedef struct s_minimap
 {
 	double			x_len;
 	double			y_len;
 	double			x_ratio;
-	double 			y_ratio;
+	double			y_ratio;
 	int				x_shift;
 	int				y_shift;
 }					t_minimap;
 
-typedef	struct	s_data
+typedef struct s_data
 {
 	char			**map;
 	void			*mlx;
@@ -70,7 +82,7 @@ typedef	struct	s_data
 	double			map_height;
 	double			angle;
 	double			x_pos;
-	double 			y_pos;
+	double			y_pos;
 	t_ray			ray[SCREEN_WIDTH];
 	double			x_ratio;
 	double			y_ratio;
@@ -78,7 +90,7 @@ typedef	struct	s_data
 
 enum e_const
 {
-	empty,
+	empty = 1,
 	map_error,
 	pos_error,
 	ceiling,
