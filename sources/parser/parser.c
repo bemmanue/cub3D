@@ -30,52 +30,30 @@ static t_data	*init_ret(void)
 	return (ret);
 }
 
-_Noreturn void	err_msg(int flag)
-{
-	ft_putendl_fd("Error", 2);
-	if (!flag)
-		ft_putendl_fd("Missing or corrupted .cub file argument", 2);
-	else if (flag == mem_error)
-		ft_putendl_fd("Memory allocation error", 2);
-	else if (flag == colors_err)
-		ft_putendl_fd("Missing or invalid color format", 2);
-	else if (flag == news_error)
-		ft_putendl_fd("Missing or invalid texture path format", 2);
-	else if (flag == news_op_error)
-		ft_putendl_fd("Missing or corrupted texture file", 2);
-	else if (flag == dup_tex)
-		ft_putendl_fd("Duplicate texture path", 2);
-	else if (flag == dup_col)
-		ft_putendl_fd("Duplicate color definition", 2);
-	else if (flag == map_error)
-		ft_putendl_fd("Found new statement when expected end-of-file", 2);
-	else if (flag == get_error)
-		ft_putendl_fd("System call error while reading from file", 2);
-	else if (flag == content_err)
-		ft_putendl_fd("Unexpected symbols while reading map", 2);
-	else if (flag == pos_error)
-		ft_putendl_fd("Missing or invalid starting position", 2);
-	exit(0);
-}
-
-static void	init_check(int argc, char **argv)
+static int	init_check(int argc, char **argv)
 {
 	char	*temp;
+	int		fd;
 
 	if (argc != 2)
 		err_msg(0);
 	temp = ft_strrchr(argv[1], '.');
 	if (!temp || ft_strncmp(temp, ".cub", 5))
 		err_msg(0);
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		err_msg(0);
+	return (fd);
 }
 
 t_data	*parser(int argc, char **argv)
 {
 	t_data	*ret;
+	int		fd;
 
-	init_check(argc, argv);
+	fd = init_check(argc, argv);
 	ret = init_ret();
-	get_info(ret, argv[1]);
+	get_info(ret, fd);
 	ret->x_ratio = (double)SCREEN_WIDTH / ret->map_width;
 	ret->y_ratio = (double)SCREEN_HEIGHT / ret->map_height;
 	return (ret);
