@@ -19,7 +19,7 @@ void	shift_position(int keycode, t_data *data)
 	double	angle;
 	double	distance;
 
-	distance = 0.3;
+	distance = 0.25;
 	angle = 0.0;
 	if (keycode == KEY_W)
 		angle = 0.0;
@@ -44,7 +44,27 @@ int	key_hook(int keycode, t_data *data)
 {
 	if (keycode == KEY_A || keycode == KEY_D
 		|| keycode == KEY_S || keycode == KEY_W)
+//		shift_position(keycode, data);
+	{
 		shift_position(keycode, data);
+//		mlx_destroy_image(data->mlx, data->image.img);
+//		render_next_frame(data);
+//		shift_position(keycode, data);
+//		mlx_destroy_image(data->mlx, data->image.img);
+//		render_next_frame(data);
+//		shift_position(keycode, data);
+//		mlx_destroy_image(data->mlx, data->image.img);
+//		render_next_frame(data);
+//		shift_position(keycode, data);
+//		mlx_destroy_image(data->mlx, data->image.img);
+//		render_next_frame(data);
+//		shift_position(keycode, data);
+//		mlx_destroy_image(data->mlx, data->image.img);
+//		render_next_frame(data);
+//		shift_position(keycode, data);
+//		mlx_destroy_image(data->mlx, data->image.img);
+//		render_next_frame(data);
+	}
 	else if (keycode == ARROW_RIGHT)
 		data->angle += 6.0;
 	else if (keycode == ARROW_LEFT)
@@ -58,6 +78,8 @@ int	key_hook(int keycode, t_data *data)
 	}
 	else if (keycode == ESCAPE)
 		exit (0);
+	mlx_destroy_image(data->mlx, data->image.img);
+	render_next_frame(data);
 	return (0);
 }
 

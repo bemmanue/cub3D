@@ -70,8 +70,8 @@ static void	get_map(t_data *info, int fd, char *line, t_flag *flags)
 			break ;
 		if (get)
 		{
-			info->x_pos = get;
-			info->y_pos = index;
+			info->x_pos = get + 0.5;
+			info->y_pos = index + 0.5;
 		}
 		detec = gnl(info, &line, fd, index);
 		index++;
